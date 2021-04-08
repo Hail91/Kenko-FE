@@ -1,10 +1,12 @@
 import React from "react";
 import "./app.css";
+// Component imports
+import RegistrationPage from "../smart/registration/RegistrationPage";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-5xl">App Here</h1>
+      <RegistrationPage />
     </div>
   );
 }
