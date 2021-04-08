@@ -1,22 +1,27 @@
-// Main Registration Page will live here
 import React from "react";
 
 const RegistrationPage = () => {
   return (
     <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <img
+        {/* <img
           class="mx-auto h-12 w-auto"
           src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
           alt="Workflow"
-        />
+        /> */}
+        <h1 class="mt-6 text-center text-3xl font-extrabold text-green-400">
+          Kenko
+        </h1>
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
+          Register an account
         </h2>
         <p class="mt-2 text-center text-sm text-gray-600 max-w">
-          Or
-          <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-            start your 14-day free trial
+          Or if you already have an account
+          <a
+            href="#"
+            class="transition-all ease-in ml-1 font-medium text-green-400 hover:text-green-500"
+          >
+            Log in here
           </a>
         </p>
       </div>
@@ -29,20 +34,30 @@ const RegistrationPage = () => {
                 for="email"
                 class="block text-sm font-medium text-gray-700"
               >
-                Email address
+                Email
               </label>
-              <div class="mt-1">
+              <div class="mt-1 relative rounded-md shadow-sm">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg
+                    class="h-5 w-5 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="#34D399"
+                    aria-hidden="true"
+                  >
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                </div>
                 <input
-                  id="email"
+                  type="text"
                   name="email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  id="email"
+                  class="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                  placeholder="you@example.com"
                 />
               </div>
             </div>
-
             <div>
               <label
                 for="password"
@@ -50,25 +65,26 @@ const RegistrationPage = () => {
               >
                 Password
               </label>
-              <div class="mt-1">
+              <div class="mt-1 relative rounded-md shadow-sm">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="fas fa-key text-green-400"></i>
+                </div>
                 <input
-                  id="password"
-                  name="password"
                   type="password"
-                  autocomplete="current-password"
-                  required
-                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  name="password"
+                  id="password"
+                  class="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                  placeholder="Password"
                 />
               </div>
             </div>
-
             <div class="flex items-center justify-between">
               <div class="flex items-center">
                 <input
                   id="remember_me"
                   name="remember_me"
                   type="checkbox"
-                  class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  class="h-4 w-4 text-green-400 focus:ring-0 focus:shadow-none border-gray-400 rounded cursor-pointer"
                 />
                 <label
                   for="remember_me"
@@ -81,7 +97,7 @@ const RegistrationPage = () => {
               <div class="text-sm">
                 <a
                   href="#"
-                  class="font-medium text-indigo-600 hover:text-indigo-500"
+                  class="transition-all ease-in font-medium text-green-400 hover:text-green-500"
                 >
                   Forgot your password?
                 </a>
@@ -91,7 +107,7 @@ const RegistrationPage = () => {
             <div>
               <button
                 type="submit"
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                class="transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none"
               >
                 Sign in
               </button>
