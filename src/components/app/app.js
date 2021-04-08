@@ -1,16 +1,20 @@
 import React from "react";
 import "./app.css";
 // Import client side Routing
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 // Component imports
-import RegistrationPage from "../smart/registration/RegistrationPage";
+import LoginPage from "../smart/login/LoginPage";
+import RegisterPage from "../smart/registration/RegistrationPage";
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <Route path="/login">
+          <LoginPage />
+        </Route>
         <Route path="/register">
-          <RegistrationPage />
+          <RegisterPage />
         </Route>
       </div>
     </Router>

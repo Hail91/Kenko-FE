@@ -1,10 +1,10 @@
 import React from "react";
 // Router relevant imports
 import { NavLink } from "react-router-dom";
-// Component imports
+// Component Imports
 import ExternalLogin from "../shared/ExternalLogin";
 
-const RegistrationPage = () => {
+const LoginPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -12,15 +12,15 @@ const RegistrationPage = () => {
           Kenko
         </h1>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Register an account
+          Log in to your account
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600 max-w">
-          Or if you already have an account
+          If you don't have an account yet, you can
           <NavLink
-            to="/login"
+            to="/register"
             className="transition-all ease-in ml-1 font-medium text-green-400 hover:text-green-500"
           >
-            Log in here
+            register here
           </NavLink>
         </p>
       </div>
@@ -132,4 +132,4 @@ const RegistrationPage = () => {
   );
 };
 // Export Component
-export default RegistrationPage;
+export default LoginPage;
