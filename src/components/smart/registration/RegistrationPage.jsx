@@ -1,10 +1,28 @@
-import React from "react";
-// Router relevant imports
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+// Dependency imports
+import { NavLink, useHistory } from "react-router-dom";
+import axios from "axios";
 // Component imports
 import ExternalLogin from "../shared/ExternalLogin";
+import useInput from "../../../custom_hooks/useInput";
 
 const RegistrationPage = () => {
+  // Component State
+  const [user, setUser] = useInput({
+    email: "",
+    password: "",
+  });
+  const location = useHistory();
+
+  // Component Methods
+  // Will be called when Register button is clicked
+  const RegisterUser = (event) => {
+    event.preventDefault();
+    axios.post("http://localhost:8000/api/auth/register", user).then((res) => {
+      console.log(res);
+    });
+  };
+  // Render HTML content
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -27,7 +45,7 @@ const RegistrationPage = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -52,6 +70,8 @@ const RegistrationPage = () => {
                   type="text"
                   name="email"
                   id="email"
+                  value={user.email}
+                  onChange={setUser}
                   className="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                   placeholder="you@example.com"
                 />
@@ -72,6 +92,8 @@ const RegistrationPage = () => {
                   type="password"
                   name="password"
                   id="password"
+                  value={user.password}
+                  onChange={setUser}
                   className="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                   placeholder="Password"
                 />
@@ -105,10 +127,11 @@ const RegistrationPage = () => {
 
             <div>
               <button
-                type="submit"
+                onClick={RegisterUser}
+                type="button"
                 className="transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none"
               >
-                Sign in
+                Register
               </button>
             </div>
           </form>
