@@ -1,10 +1,28 @@
-import React from "react";
-// Router relevant imports
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+// Dependency imports
+import { NavLink, useHistory } from "react-router-dom";
+import axios from "axios";
 // Component imports
 import ExternalLogin from "../shared/ExternalLogin";
 
 const RegistrationPage = () => {
+  // Component State
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const location = useHistory();
+
+  // Component Methods
+  // Will be called when Register button is clicked
+  const RegisterUser = async () => {
+    // Use Axios to hit the register endpoint
+    let response = await axios.post("http://localhost:8000/api/auth/register");
+    // If that request is successful,
+  };
+  // Handle input change when user types into the inputs
+  const handleChange = () => {};
+  // Render HTML content
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -108,7 +126,7 @@ const RegistrationPage = () => {
                 type="submit"
                 className="transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none"
               >
-                Sign in
+                Register
               </button>
             </div>
           </form>
