@@ -1,29 +1,45 @@
-import React, { useState } from "react";
-// Dependency imports
+import React, { useState, useEffect } from "react";
+// External Dependency imports
 import { NavLink, useHistory } from "react-router-dom";
 import axios from "axios";
+// Internal imports
+import FormValidator from "../../../utilities/validators/FormValidator";
 // Component imports
 import ExternalLogin from "../shared/ExternalLogin";
 import useInput from "../../../custom_hooks/useInput";
+import ErrorMessage from "../../presentational/flash-messages/ErrorMessage";
 
 const RegistrationPage = () => {
   // Component State
+  const [isValidEmail, setIsValidEmail] = useState(null);
   const [user, setUser] = useInput({
     email: "",
     password: "",
   });
   const location = useHistory();
 
+  useEffect(() => {
+    // Check if email is valid as user types into the input
+    setIsValidEmail(FormValidator.emailValidation(user.email));
+  }, [isValidEmail, user.email]);
+
   // Component Methods
   const RegisterUser = async () => {
-    let response = await axios.post(
-      "http://localhost:8000/api/auth/register",
-      user
-    );
-    if (response.status === 201) {
-      localStorage.setItem("registerStatus", true);
-    } else localStorage.setItem("registerStatus", false);
-    location.push("/login");
+    // Based on user input, either make the request or show them an error regarding their input
+    if (isValidEmail) {
+      try {
+        let response = await axios.post(
+          "http://localhost:8000/api/auth/register",
+          user
+        );
+        if (response.status === 201) {
+          localStorage.setItem("registerStatus", true);
+        } else localStorage.setItem("registerStatus", false);
+        location.push("/login");
+      } catch (error) {
+        console.log({ errorMessage: error });
+      }
+    }
   };
   // Render HTML content
   return (
@@ -79,6 +95,8 @@ const RegistrationPage = () => {
                   placeholder="you@example.com"
                 />
               </div>
+              {/* TODO: Style the error message and make it look clean as well as update for when email is finally valid */}
+              {!isValidEmail ? <ErrorMessage type={"email"} /> : <></>}
             </div>
             <div>
               <label
