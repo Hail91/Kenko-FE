@@ -4,11 +4,17 @@ const SuccessMessage = ({ type }) => {
   const [message, showMessage] = useState(true);
   useEffect(() => {
     setTimeout(() => {
-      // Update CSS for container here after 3 seconds (3000ms)
+      showMessage(false);
     }, 3000);
   }, []);
   return (
-    <div className="rounded-md bg-green-50 p-4">
+    <div
+      className={
+        message
+          ? "rounded-md bg-green-50 p-4 absolute inset-x-0 opacity-100 transition-all"
+          : "rounded-md bg-green-50 p-4 absolute inset-x-0 transform -translate-y-2 opacity-0 transition ease-linear duration-600"
+      }
+    >
       <div className="flex justify-center">
         <div className="flex-shrink-0">
           <svg
