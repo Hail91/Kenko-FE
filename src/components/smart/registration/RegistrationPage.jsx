@@ -15,12 +15,15 @@ const RegistrationPage = () => {
   const location = useHistory();
 
   // Component Methods
-  // Will be called when Register button is clicked
-  const RegisterUser = (event) => {
-    event.preventDefault();
-    axios.post("http://localhost:8000/api/auth/register", user).then((res) => {
-      console.log(res);
-    });
+  const RegisterUser = async () => {
+    let response = await axios.post(
+      "http://localhost:8000/api/auth/register",
+      user
+    );
+    if (response.status === 201) {
+      localStorage.setItem("registerStatus", true);
+    } else localStorage.setItem("registerStatus", false);
+    location.push("/login");
   };
   // Render HTML content
   return (
