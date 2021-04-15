@@ -2,7 +2,7 @@ import React from "react";
 
 const ErrorMessage = ({ type }) => {
   return (
-    <div className="rounded-md bg-red-50 p-4">
+    <div className="rounded-md bg-red-50 pt-2">
       <div className="flex">
         <div className="flex-shrink-0">
           <svg

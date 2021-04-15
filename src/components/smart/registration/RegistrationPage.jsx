@@ -8,6 +8,7 @@ import FormValidator from "../../../utilities/validators/FormValidator";
 import ExternalLogin from "../shared/ExternalLogin";
 import useInput from "../../../custom_hooks/useInput";
 import ErrorMessage from "../../presentational/flash-messages/ErrorMessage";
+import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 
 const RegistrationPage = () => {
   // Component State
@@ -34,9 +35,12 @@ const RegistrationPage = () => {
         );
         if (response.status === 201) {
           localStorage.setItem("registerStatus", true);
-        } else localStorage.setItem("registerStatus", false);
+        }
         location.push("/login");
       } catch (error) {
+        localStorage.setItem("registerStatus", false);
+        // temporary fix, need to find a way to trigger a re-render of the registerPage component
+        location.push("/login");
         console.log({ errorMessage: error });
       }
     }
@@ -60,6 +64,11 @@ const RegistrationPage = () => {
             Log in here
           </NavLink>
         </p>
+        {localStorage.getItem("registerStatus") === false ? (
+          <FailureMessage type={"Register"} />
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -93,10 +102,15 @@ const RegistrationPage = () => {
                   onChange={setUser}
                   className="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                   placeholder="you@example.com"
+                  autoComplete="off"
                 />
               </div>
-              {/* TODO: Style the error message and make it look clean as well as update for when email is finally valid */}
-              {!isValidEmail ? <ErrorMessage type={"email"} /> : <></>}
+              {/* Check if Email is invalid AND if something has been entered*/}
+              {!isValidEmail && user.email !== "" ? (
+                <ErrorMessage type={"email"} />
+              ) : (
+                <></>
+              )}
             </div>
             <div>
               <label

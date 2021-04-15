@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/outline";
+import { XCircleIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/solid";
 
-const SuccessMessage = ({ type }) => {
+const FailureMessage = ({ type }) => {
   const [showMessage, setShowMessage] = useState(true);
-  // Dynamic close the notification after a period of 3 seconds
+  // Dynamic close the notification after a period of 5 seconds
   useEffect(() => {
     setTimeout(() => {
       setShowMessage(false);
@@ -34,19 +34,19 @@ const SuccessMessage = ({ type }) => {
             <div className="p-4">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <CheckCircleIcon
-                    className="h-6 w-6 text-green-400"
+                  <XCircleIcon
+                    className="h-6 w-6 text-red-400"
                     aria-hidden="true"
                   />
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
                   <p className="text-sm font-medium text-gray-900">
-                    Successfully {type}
+                    Failed to {type}
                   </p>
                 </div>
                 <div className="ml-4 flex-shrink-0 flex">
                   <button
-                    className="bg-white rounded-md inline-flex text-green-400 hover:text-green-500 focus:outline-none"
+                    className="bg-white rounded-md inline-flex text-red-400 hover:text-red-500 focus:outline-none"
                     onClick={() => {
                       setShowMessage(false);
                     }}
@@ -64,4 +64,4 @@ const SuccessMessage = ({ type }) => {
   );
 };
 // Export component
-export default SuccessMessage;
+export default FailureMessage;
