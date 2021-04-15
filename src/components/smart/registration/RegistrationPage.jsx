@@ -93,10 +93,15 @@ const RegistrationPage = () => {
                   onChange={setUser}
                   className="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                   placeholder="you@example.com"
+                  autoComplete="off"
                 />
               </div>
-              {/* TODO: Style the error message and make it look clean as well as update for when email is finally valid */}
-              {!isValidEmail ? <ErrorMessage type={"email"} /> : <></>}
+              {/* Check if Email is invalid AND if something has been entered*/}
+              {!isValidEmail && user.email !== "" ? (
+                <ErrorMessage type={"email"} />
+              ) : (
+                <></>
+              )}
             </div>
             <div>
               <label
