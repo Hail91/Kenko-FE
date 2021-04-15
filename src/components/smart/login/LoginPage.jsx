@@ -4,9 +4,11 @@ import { NavLink } from "react-router-dom";
 // Component Imports
 import ExternalLogin from "../shared/ExternalLogin";
 import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
+import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 
 const LoginPage = () => {
   useEffect(() => {
+    console.log(localStorage.getItem("registerStatus"));
     return () => {
       localStorage.removeItem("registerStatus");
     };
@@ -30,8 +32,10 @@ const LoginPage = () => {
             register here
           </NavLink>
         </p>
-        {localStorage.getItem("registerStatus") ? (
+        {localStorage.getItem("registerStatus") === "true" ? (
           <SuccessMessage type={"Registered!"} />
+        ) : localStorage.getItem("registerStatus") === "false" ? (
+          <FailureMessage type={"Register"} />
         ) : (
           <></>
         )}
