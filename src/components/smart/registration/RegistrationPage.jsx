@@ -133,7 +133,7 @@ const RegistrationPage = () => {
                 />
               </div>
               {!isValidPassword && user.password !== "" ? (
-                <ErrorMessage type={"Password"} />
+                <ErrorMessage type={"password"} />
               ) : (
                 <></>
               )}

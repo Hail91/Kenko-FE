@@ -19,10 +19,18 @@ const ErrorMessage = ({ type }) => {
             />
           </svg>
         </div>
-        <div className="ml-3">
+        <div className="ml-3 flex items-center">
           <h3 className="text-sm font-medium text-red-800">
             Please enter a valid {type}
           </h3>
+          {type === "password" ? (
+            <a
+              href="#criteria"
+              className="text-sm font-medium text-green-400 ml-6 cursor-pointer hover:text-green-500 transition-all ease-in"
+            >
+              See Criteria
+            </a>
+          ) : null}
         </div>
       </div>
     </div>
