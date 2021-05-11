@@ -39,8 +39,6 @@ const RegistrationPage = () => {
         location.push("/login");
       } catch (error) {
         localStorage.setItem("registerStatus", false);
-        // temporary fix, need to find a way to trigger a re-render of the registerPage component
-        location.push("/login");
         console.log({ errorMessage: error });
       }
     }
@@ -162,9 +160,14 @@ const RegistrationPage = () => {
 
             <div>
               <button
+                disabled={!isValidEmail}
                 onClick={RegisterUser}
                 type="button"
-                className="transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none"
+                className={
+                  isValidEmail
+                    ? "transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none disabled:opacity-50"
+                    : "transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 cursor-default focus:outline-none disabled:opacity-50"
+                }
               >
                 Register
               </button>
