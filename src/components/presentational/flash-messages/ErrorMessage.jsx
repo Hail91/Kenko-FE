@@ -1,6 +1,6 @@
 import React from "react";
 
-const ErrorMessage = ({ type }) => {
+const ErrorMessage = ({ type, action }) => {
   return (
     <div className="rounded-md bg-red-50 pt-2">
       <div className="flex">
@@ -26,6 +26,7 @@ const ErrorMessage = ({ type }) => {
           {type === "password" ? (
             <a
               href="#criteria"
+              onClick={action}
               className="text-sm font-medium text-green-400 ml-6 cursor-pointer hover:text-green-500 transition-all ease-in"
             >
               See Criteria

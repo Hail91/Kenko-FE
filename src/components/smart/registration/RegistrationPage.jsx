@@ -9,9 +9,11 @@ import ExternalLogin from "../shared/ExternalLogin";
 import useInput from "../../../custom_hooks/useInput";
 import ErrorMessage from "../../presentational/flash-messages/ErrorMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
+import PasswordCriteria from "../../presentational/utility/PasswordCriteria";
 
 const RegistrationPage = () => {
   // Component State
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(null);
   const [isValidPassword, setIsValidPassword] = useState(null);
   const [user, setUser] = useInput({
@@ -21,12 +23,16 @@ const RegistrationPage = () => {
   const location = useHistory();
 
   useEffect(() => {
-    // Check if email is valid as user types into the input
+    // Check if email/password are valid as user types into the inputs
     setIsValidEmail(FormValidator.emailValidation(user.email));
     setIsValidPassword(FormValidator.passwordValidation(user.password));
   }, [isValidEmail, isValidPassword, user.email, user.password]);
 
   // Component Methods
+  const togglePasswordHelp = () => {
+    setOpenDrawer(!openDrawer);
+  };
+
   const RegisterUser = async () => {
     // Based on user input, either make the request or show them an error regarding their input
     if (isValidEmail) {
@@ -48,6 +54,7 @@ const RegistrationPage = () => {
   // Render HTML content
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <PasswordCriteria state={openDrawer} action={togglePasswordHelp} />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h1 className="mt-6 text-center text-3xl font-extrabold text-green-400">
           Kenko
@@ -133,7 +140,7 @@ const RegistrationPage = () => {
                 />
               </div>
               {!isValidPassword && user.password !== "" ? (
-                <ErrorMessage type={"password"} />
+                <ErrorMessage action={togglePasswordHelp} type={"password"} />
               ) : (
                 <></>
               )}
