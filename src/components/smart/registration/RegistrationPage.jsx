@@ -13,6 +13,7 @@ import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 const RegistrationPage = () => {
   // Component State
   const [isValidEmail, setIsValidEmail] = useState(null);
+  const [isValidPassword, setIsValidPassword] = useState(null);
   const [user, setUser] = useInput({
     email: "",
     password: "",
@@ -22,7 +23,8 @@ const RegistrationPage = () => {
   useEffect(() => {
     // Check if email is valid as user types into the input
     setIsValidEmail(FormValidator.emailValidation(user.email));
-  }, [isValidEmail, user.email]);
+    setIsValidPassword(FormValidator.passwordValidation(user.password));
+  }, [isValidEmail, isValidPassword, user.email, user.password]);
 
   // Component Methods
   const RegisterUser = async () => {
@@ -103,7 +105,6 @@ const RegistrationPage = () => {
                   autoComplete="off"
                 />
               </div>
-              {/* Check if Email is invalid AND if something has been entered*/}
               {!isValidEmail && user.email !== "" ? (
                 <ErrorMessage type={"email"} />
               ) : (
@@ -131,6 +132,11 @@ const RegistrationPage = () => {
                   placeholder="Password"
                 />
               </div>
+              {!isValidPassword && user.password !== "" ? (
+                <ErrorMessage type={"Password"} />
+              ) : (
+                <></>
+              )}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
@@ -160,11 +166,11 @@ const RegistrationPage = () => {
 
             <div>
               <button
-                disabled={!isValidEmail}
+                disabled={!isValidEmail || !isValidPassword}
                 onClick={RegisterUser}
                 type="button"
                 className={
-                  isValidEmail
+                  isValidEmail && isValidPassword
                     ? "transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none disabled:opacity-50"
                     : "transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 cursor-default focus:outline-none disabled:opacity-50"
                 }
