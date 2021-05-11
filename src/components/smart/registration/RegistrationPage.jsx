@@ -9,10 +9,13 @@ import ExternalLogin from "../shared/ExternalLogin";
 import useInput from "../../../custom_hooks/useInput";
 import ErrorMessage from "../../presentational/flash-messages/ErrorMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
+import PasswordCriteria from "../../presentational/utility/PasswordCriteria";
 
 const RegistrationPage = () => {
   // Component State
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(null);
+  const [isValidPassword, setIsValidPassword] = useState(null);
   const [user, setUser] = useInput({
     email: "",
     password: "",
@@ -20,11 +23,16 @@ const RegistrationPage = () => {
   const location = useHistory();
 
   useEffect(() => {
-    // Check if email is valid as user types into the input
+    // Check if email/password are valid as user types into the inputs
     setIsValidEmail(FormValidator.emailValidation(user.email));
-  }, [isValidEmail, user.email]);
+    setIsValidPassword(FormValidator.passwordValidation(user.password));
+  }, [isValidEmail, isValidPassword, user.email, user.password]);
 
   // Component Methods
+  const togglePasswordHelp = () => {
+    setOpenDrawer(!openDrawer);
+  };
+
   const RegisterUser = async () => {
     // Based on user input, either make the request or show them an error regarding their input
     if (isValidEmail) {
@@ -39,8 +47,6 @@ const RegistrationPage = () => {
         location.push("/login");
       } catch (error) {
         localStorage.setItem("registerStatus", false);
-        // temporary fix, need to find a way to trigger a re-render of the registerPage component
-        location.push("/login");
         console.log({ errorMessage: error });
       }
     }
@@ -48,6 +54,7 @@ const RegistrationPage = () => {
   // Render HTML content
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <PasswordCriteria state={openDrawer} action={togglePasswordHelp} />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h1 className="mt-6 text-center text-3xl font-extrabold text-green-400">
           Kenko
@@ -105,7 +112,6 @@ const RegistrationPage = () => {
                   autoComplete="off"
                 />
               </div>
-              {/* Check if Email is invalid AND if something has been entered*/}
               {!isValidEmail && user.email !== "" ? (
                 <ErrorMessage type={"email"} />
               ) : (
@@ -133,6 +139,11 @@ const RegistrationPage = () => {
                   placeholder="Password"
                 />
               </div>
+              {!isValidPassword && user.password !== "" ? (
+                <ErrorMessage action={togglePasswordHelp} type={"password"} />
+              ) : (
+                <></>
+              )}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
@@ -162,9 +173,14 @@ const RegistrationPage = () => {
 
             <div>
               <button
+                disabled={!isValidEmail || !isValidPassword}
                 onClick={RegisterUser}
                 type="button"
-                className="transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none"
+                className={
+                  isValidEmail && isValidPassword
+                    ? "transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none disabled:opacity-50"
+                    : "transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 cursor-default focus:outline-none disabled:opacity-50"
+                }
               >
                 Register
               </button>
