@@ -1,10 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 
 const PasswordCriteria = ({ state, action }) => {
-  const [open, setOpen] = useState(false);
-
   return (
     <Transition.Root show={state} as={Fragment}>
       <Dialog
@@ -28,15 +26,15 @@ const PasswordCriteria = ({ state, action }) => {
               leaveTo="translate-x-full"
             >
               <div className="w-screen max-w-md">
-                <div className="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
-                  <div className="py-6 px-4 bg-indigo-700 sm:px-6">
+                <div className="h-50 flex flex-col bg-white shadow-xl rounded">
+                  <div className="py-6 px-4 bg-green-400 sm:px-6 rounded">
                     <div className="flex items-center justify-between">
                       <Dialog.Title className="text-lg font-medium text-white">
                         Password Criteria
                       </Dialog.Title>
                       <div className="ml-3 h-7 flex items-center">
                         <button
-                          className="bg-indigo-700 rounded-md text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                          className="rounded-md text-white focus:outline-none"
                           onClick={() => action()}
                         >
                           <span className="sr-only">Close panel</span>
@@ -45,20 +43,25 @@ const PasswordCriteria = ({ state, action }) => {
                       </div>
                     </div>
                     <div className="mt-1">
-                      <p className="text-sm text-indigo-300">
+                      <p className="text-md text-white underline">
                         A valid password must contain the following:
                       </p>
+                      <ul>
+                        <li className="text-white">
+                          The password must contain at least 8 characters
+                        </li>
+                        <li className="text-white">
+                          The password must contain at least 1 number
+                        </li>
+                        <li className="text-white">
+                          The password must contain at least 1 special character
+                        </li>
+                        <li className="text-white">
+                          The password must contain at least 1 uppercase and 1
+                          lowercase letter
+                        </li>
+                      </ul>
                     </div>
-                  </div>
-                  <div className="relative flex-1 py-6 px-4 sm:px-6">
-                    {/* Replace with your content */}
-                    <div className="absolute inset-0 py-6 px-4 sm:px-6">
-                      <div
-                        className="h-full border-2 border-dashed border-gray-200"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    {/* /End replace */}
                   </div>
                 </div>
               </div>
