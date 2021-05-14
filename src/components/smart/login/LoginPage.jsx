@@ -1,18 +1,38 @@
 import React, { useEffect } from "react";
 // Router relevant imports
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
 import ExternalLogin from "../shared/ExternalLogin";
 import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
+import axios from "axios";
+// Custom hooks
+import useInput from "../../../custom_hooks/useInput";
 
 const LoginPage = () => {
+  const [user, setUser] = useInput({
+    email: "",
+    password: "",
+  });
+  const location = useHistory();
+
   useEffect(() => {
-    console.log(localStorage.getItem("registerStatus"));
     return () => {
       localStorage.removeItem("registerStatus");
     };
   }, []);
+
+  const LoginUser = async () => {
+    try {
+      let response = await axios.post(
+        "http://localhost:8000/api/auth/login",
+        user
+      );
+      location.push("/dashboard/home");
+    } catch (error) {
+      console.log({ errorMessage: error });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -70,6 +90,8 @@ const LoginPage = () => {
                   id="email"
                   className="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                   placeholder="you@example.com"
+                  value={user.email}
+                  onChange={setUser}
                 />
               </div>
             </div>
@@ -90,6 +112,8 @@ const LoginPage = () => {
                   id="password"
                   className="focus:ring-green-400 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                   placeholder="Password"
+                  value={user.password}
+                  onChange={setUser}
                 />
               </div>
             </div>
@@ -121,7 +145,8 @@ const LoginPage = () => {
 
             <div>
               <button
-                type="submit"
+                onClick={LoginUser}
+                type="button"
                 className="transition-all ease-in w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-400 hover:bg-green-500 focus:outline-none"
               >
                 Sign in

@@ -4,9 +4,10 @@ import { NavLink, useHistory } from "react-router-dom";
 import axios from "axios";
 // Internal imports
 import FormValidator from "../../../utilities/validators/FormValidator";
+// Custom hooks
+import useInput from "../../../custom_hooks/useInput";
 // Component imports
 import ExternalLogin from "../shared/ExternalLogin";
-import useInput from "../../../custom_hooks/useInput";
 import ErrorMessage from "../../presentational/flash-messages/ErrorMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 import PasswordCriteria from "../../presentational/utility/PasswordCriteria";
