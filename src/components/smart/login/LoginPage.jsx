@@ -28,7 +28,6 @@ const LoginPage = () => {
         "http://localhost:8000/api/auth/login",
         user
       );
-      console.log(response);
       location.push("/dashboard/home");
     } catch (error) {
       console.log({ errorMessage: error });
