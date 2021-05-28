@@ -2,7 +2,7 @@ import React from "react";
 // Default Styles
 import "./app.css";
 // Import client side Routing
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 // Component imports
 import LoginPage from "../smart/login/LoginPage";
 import RegisterPage from "../smart/registration/RegistrationPage";
@@ -12,6 +12,9 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Route exact path="/">
+          <Redirect to="/register" />
+        </Route>
         <Route path="/login">
           <LoginPage />
         </Route>
