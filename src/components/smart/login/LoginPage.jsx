@@ -31,7 +31,6 @@ const LoginPage = () => {
       );
       location.push("/dashboard/home");
     } catch (error) {
-      // If credentials are incorrect
       if (error.response.status === 401) {
         setIncorrectLogin(true);
       }
