@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // Router relevant imports
 import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
@@ -14,6 +14,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  const [incorrectLogin, setIncorrectLogin] = useState(false);
   const location = useHistory();
 
   useEffect(() => {
@@ -30,6 +31,9 @@ const LoginPage = () => {
       );
       location.push("/dashboard/home");
     } catch (error) {
+      if (error.response.status === 401) {
+        setIncorrectLogin(true);
+      }
       console.log({ errorMessage: error });
     }
   };
@@ -142,6 +146,12 @@ const LoginPage = () => {
                 </a>
               </div>
             </div>
+
+            {incorrectLogin ? (
+              <p className="mb-4 text-red-500">
+                Incorrect credentials provided, please try again
+              </p>
+            ) : null}
 
             <div>
               <button
