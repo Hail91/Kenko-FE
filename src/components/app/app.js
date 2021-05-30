@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="App">
         <Route exact path="/">
-          <Redirect to="/register" />
+          <Redirect to="/login" />
         </Route>
         <Route path="/login">
           <LoginPage />
