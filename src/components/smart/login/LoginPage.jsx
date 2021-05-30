@@ -29,6 +29,8 @@ const LoginPage = () => {
         "http://localhost:8000/api/auth/login",
         user
       );
+      // Update user state in Redux --> TODO
+      localStorage.setItem("isAuthenticated", true);
       location.push("/dashboard/home");
     } catch (error) {
       if (error.response.status === 401) {

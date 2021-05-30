@@ -7,13 +7,15 @@ import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import LoginPage from "../smart/login/LoginPage";
 import RegisterPage from "../smart/registration/RegistrationPage";
 import Main from "../smart/dashboard/Main";
+// Utility Imports
+import PrivateRoute from "../../utilities/routing/PrivateRoute";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Route exact path="/">
-          <Redirect to="/register" />
+          <Redirect to="/login" />
         </Route>
         <Route path="/login">
           <LoginPage />
@@ -21,9 +23,9 @@ function App() {
         <Route path="/register">
           <RegisterPage />
         </Route>
-        <Route path="/dashboard/home">
+        <PrivateRoute path="/dashboard/home">
           <Main />
-        </Route>
+        </PrivateRoute>
       </div>
     </Router>
   );
