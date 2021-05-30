@@ -15,12 +15,12 @@ import {
 import { SearchIcon } from "@heroicons/react/solid";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
+  { name: "Dashboard", href: "#", icon: HomeIcon, current: false },
+  { name: "Friends", href: "#", icon: UsersIcon, current: false },
+  { name: "Goals", href: "#", icon: FolderIcon, current: false },
   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
   { name: "Documents", href: "#", icon: InboxIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartBarIcon, current: false },
+  { name: "Analytics", href: "#", icon: ChartBarIcon, current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -124,16 +124,14 @@ const Main = () => {
       </Transition.Root>
 
       {/* Static sidebar for desktop */}
-      <div className="hidden bg-indigo-700 md:flex md:flex-shrink-0">
+      <div className="hidden bg-green-400 md:flex md:flex-shrink-0">
         <div className="flex flex-col w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-                alt="Workflow"
-              />
+              <h1 className="h-8 w-auto text-white font-bold text-3xl">
+                Kenko
+              </h1>
             </div>
             <div className="mt-5 flex-1 flex flex-col">
               <nav className="flex-1 px-2 space-y-1">
@@ -143,13 +141,13 @@ const Main = () => {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-indigo-800 text-white"
-                        : "text-indigo-100 hover:bg-indigo-600",
+                        ? "bg-green-400 text-white"
+                        : "text-white hover:bg-green-300 transition-all ease-in-out",
                       "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                     )}
                   >
                     <item.icon
-                      className="mr-3 flex-shrink-0 h-6 w-6 text-indigo-300"
+                      className="mr-3 flex-shrink-0 h-6 w-6 text-white"
                       aria-hidden="true"
                     />
                     {item.name}
@@ -195,7 +193,6 @@ const Main = () => {
                 <span className="sr-only">View notifications</span>
                 <BellIcon className="h-6 w-6" aria-hidden="true" />
               </button>
-
               {/* Profile dropdown */}
               <Menu as="div" className="ml-3 relative">
                 {({ open }) => (
@@ -252,7 +249,7 @@ const Main = () => {
           <div className="py-6">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               <h1 className="text-2xl font-semibold text-gray-900">
-                Dashboard
+                Main user dashboard will live here
               </h1>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
