@@ -7,10 +7,10 @@ import {
   ChartBarIcon,
   FolderIcon,
   HomeIcon,
-  InboxIcon,
   MenuAlt2Icon,
   UsersIcon,
   XIcon,
+  CogIcon,
 } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
 
@@ -19,8 +19,8 @@ const navigation = [
   { name: "Friends", href: "#", icon: UsersIcon, current: false },
   { name: "Goals", href: "#", icon: FolderIcon, current: false },
   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: InboxIcon, current: false },
   { name: "Analytics", href: "#", icon: ChartBarIcon, current: false },
+  { name: "Settings", href: "#", icon: CogIcon, current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -65,7 +65,7 @@ const Main = () => {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-700">
+            <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-green-400">
               <Transition.Child
                 as={Fragment}
                 enter="ease-in-out duration-300"
@@ -87,11 +87,9 @@ const Main = () => {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4">
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-                  alt="Workflow"
-                />
+                <h1 className="h-8 w-auto text-white font-bold text-3xl">
+                  Kenko
+                </h1>
               </div>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
                 <nav className="px-2 space-y-1">
@@ -101,13 +99,13 @@ const Main = () => {
                       href={item.href}
                       className={classNames(
                         item.current
-                          ? "bg-indigo-800 text-white"
-                          : "text-indigo-100 hover:bg-indigo-600",
+                          ? "bg-green-400 text-white"
+                          : "text-white hover:bg-green-300 transition-all ease-in-out",
                         "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                       )}
                     >
                       <item.icon
-                        className="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
+                        className="mr-4 flex-shrink-0 h-6 w-6 text-white"
                         aria-hidden="true"
                       />
                       {item.name}
@@ -189,16 +187,19 @@ const Main = () => {
               </form>
             </div>
             <div className="ml-4 flex items-center md:ml-6">
-              <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
                 <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
+                <BellIcon
+                  className="h-6 w-6 hover:text-green-400 transition-all"
+                  aria-hidden="true"
+                />
               </button>
               {/* Profile dropdown */}
               <Menu as="div" className="ml-3 relative">
                 {({ open }) => (
                   <>
                     <div>
-                      <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none">
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
@@ -265,5 +266,5 @@ const Main = () => {
     </div>
   );
 };
-
+// Export component
 export default Main;
