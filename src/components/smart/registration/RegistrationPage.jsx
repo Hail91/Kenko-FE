@@ -15,7 +15,6 @@ import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 import PasswordCriteria from "../../presentational/utility/PasswordCriteria";
 
 const RegistrationPage = (props) => {
-  // Component State
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(null);
   const [isValidPassword, setIsValidPassword] = useState(null);
@@ -26,24 +25,20 @@ const RegistrationPage = (props) => {
   const location = useHistory();
 
   useEffect(() => {
-    // Check if email/password are valid as user types into the inputs
     setIsValidEmail(FormValidator.emailValidation(user.email));
     setIsValidPassword(FormValidator.passwordValidation(user.password));
   }, [isValidEmail, isValidPassword, user.email, user.password]);
 
-  // Component Methods
   const togglePasswordHelp = () => {
     setOpenDrawer(!openDrawer);
   };
 
   const RegisterUser = () => {
-    // Based on user input, either make the request or show them an error regarding their input
-    if (isValidEmail) {
+    if (isValidEmail && isValidPassword) {
       props.registerUser(user);
       location.push("/login");
     }
   };
-  // Render HTML content
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <PasswordCriteria state={openDrawer} action={togglePasswordHelp} />
@@ -63,11 +58,7 @@ const RegistrationPage = (props) => {
             Log in here
           </NavLink>
         </p>
-        {localStorage.getItem("registerStatus") === false ? (
-          <FailureMessage type={"Register"} />
-        ) : (
-          <></>
-        )}
+        {props.auth.error ? <FailureMessage type={"Register"} /> : <></>}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

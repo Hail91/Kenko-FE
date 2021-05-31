@@ -1,10 +1,9 @@
-// Import actions
 import {
   REGISTER_USER_START,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
 } from "../actions/authActions/registerUser";
-// Set the initial state to be used
+
 const initialState = {
   currentUser: {
     email: "",
@@ -15,7 +14,7 @@ const initialState = {
   isLoading: false,
   error: null,
 };
-// Define the reducer for Authentication services
+
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER_START:
@@ -39,5 +38,4 @@ const authenticationReducer = (state = initialState, action) => {
       return state;
   }
 };
-// Export for rootReducer
 export default authenticationReducer;
