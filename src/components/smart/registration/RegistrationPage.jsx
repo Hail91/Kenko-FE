@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+// Redux imports
+import { connect } from "react-redux";
+import registerUser from "../../../store/actions/authActions/registerUser";
 // External Dependency imports
 import { NavLink, useHistory } from "react-router-dom";
-import axios from "axios";
 // Internal imports
 import FormValidator from "../../../utilities/validators/FormValidator";
 // Custom hooks
@@ -12,7 +14,7 @@ import ErrorMessage from "../../presentational/flash-messages/ErrorMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 import PasswordCriteria from "../../presentational/utility/PasswordCriteria";
 
-const RegistrationPage = () => {
+const RegistrationPage = (props) => {
   // Component State
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(null);
@@ -34,22 +36,11 @@ const RegistrationPage = () => {
     setOpenDrawer(!openDrawer);
   };
 
-  const RegisterUser = async () => {
+  const RegisterUser = () => {
     // Based on user input, either make the request or show them an error regarding their input
     if (isValidEmail) {
-      try {
-        let response = await axios.post(
-          "http://localhost:8000/api/auth/register",
-          user
-        );
-        if (response.status === 201) {
-          localStorage.setItem("registerStatus", true);
-        }
-        location.push("/login");
-      } catch (error) {
-        localStorage.setItem("registerStatus", false);
-        console.log({ errorMessage: error });
-      }
+      props.registerUser(user);
+      location.push("/login");
     }
   };
   // Render HTML content
@@ -206,5 +197,9 @@ const RegistrationPage = () => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => {
+  return state;
+};
 // Export Component
-export default RegistrationPage;
+export default connect(mapStateToProps, { registerUser })(RegistrationPage);

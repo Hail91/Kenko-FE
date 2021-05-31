@@ -39,3 +39,5 @@ const authenticationReducer = (state = initialState, action) => {
       return state;
   }
 };
+// Export for rootReducer
+export default authenticationReducer;
