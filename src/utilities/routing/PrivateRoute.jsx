@@ -6,10 +6,6 @@ const PrivateRoute = ({ isAuthenticated, children, ...rest }) => {
     <Route
       {...rest}
       render={({ location }) =>
-        /* We'll have to store an authenticated user on login in Redux state
-        And then check for an isAuthenticated field to determine whether the user is authorized to view the route.
-        But for now, we'll use localStorage to simulate behavior until we integrate Redux
-        */
         isAuthenticated ? (
           children
         ) : (

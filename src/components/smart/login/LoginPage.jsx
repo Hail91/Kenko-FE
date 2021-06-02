@@ -8,12 +8,10 @@ import { NavLink, useHistory } from "react-router-dom";
 import ExternalLogin from "../shared/ExternalLogin";
 import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
-import axios from "axios";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
 
 const LoginPage = (props) => {
-  console.log(props);
   const [user, setUser] = useInput({
     email: "",
     password: "",
@@ -27,7 +25,8 @@ const LoginPage = (props) => {
     };
   }, []);
 
-  const LoginUser = () => {
+  const LoginUser = (event) => {
+    event.preventDefault();
     props.loginUser(user);
     location.push("/dashboard/home");
   };
@@ -176,9 +175,7 @@ const LoginPage = (props) => {
     </div>
   );
 };
-// Can use this method to distribute state to the component (we dont need to give it everything)
 const mapStateToProps = (state) => {
   return state;
 };
-// Export Component
 export default connect(mapStateToProps, { loginUser })(LoginPage);

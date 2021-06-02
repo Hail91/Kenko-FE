@@ -50,8 +50,10 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        currentUser: action.payload,
-        isAuthenticated: true,
+        currentUser: {
+          ...action.payload,
+          isAuthenticated: true,
+        },
       };
     case LOGIN_USER_FAILURE:
       return {
