@@ -58,7 +58,11 @@ const RegistrationPage = (props) => {
             Log in here
           </NavLink>
         </p>
-        {props.auth.error ? <FailureMessage type={"Register"} /> : <></>}
+        {props.authentication.error ? (
+          <FailureMessage type={"Register"} />
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

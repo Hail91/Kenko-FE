@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
+// Redux imports
+import { connect } from "react-redux";
+import loginUser from "../../../store/actions/authActions/loginUser";
 // Router relevant imports
 import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
 import ExternalLogin from "../shared/ExternalLogin";
 import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
-import axios from "axios";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const [user, setUser] = useInput({
     email: "",
     password: "",
@@ -23,21 +25,10 @@ const LoginPage = () => {
     };
   }, []);
 
-  const LoginUser = async () => {
-    try {
-      let response = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        user
-      );
-      // Update user state in Redux --> TODO
-      localStorage.setItem("isAuthenticated", true);
-      location.push("/dashboard/home");
-    } catch (error) {
-      if (error.response.status === 401) {
-        setIncorrectLogin(true);
-      }
-      console.log({ errorMessage: error });
-    }
+  const LoginUser = (event) => {
+    event.preventDefault();
+    props.loginUser(user);
+    location.push("/dashboard/home");
   };
 
   return (
@@ -184,5 +175,7 @@ const LoginPage = () => {
     </div>
   );
 };
-// Export Component
-export default LoginPage;
+const mapStateToProps = (state) => {
+  return state;
+};
+export default connect(mapStateToProps, { loginUser })(LoginPage);
