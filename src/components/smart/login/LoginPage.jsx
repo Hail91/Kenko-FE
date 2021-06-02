@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+// Redux imports
+import { connect } from "react-redux";
+import loginUser from "../../../store/actions/authActions/loginUser";
 // Router relevant imports
 import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
@@ -9,7 +12,8 @@ import axios from "axios";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
 
-const LoginPage = () => {
+const LoginPage = (props) => {
+  console.log(props);
   const [user, setUser] = useInput({
     email: "",
     password: "",
@@ -23,21 +27,9 @@ const LoginPage = () => {
     };
   }, []);
 
-  const LoginUser = async () => {
-    try {
-      let response = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        user
-      );
-      // Update user state in Redux --> TODO
-      localStorage.setItem("isAuthenticated", true);
-      location.push("/dashboard/home");
-    } catch (error) {
-      if (error.response.status === 401) {
-        setIncorrectLogin(true);
-      }
-      console.log({ errorMessage: error });
-    }
+  const LoginUser = () => {
+    props.loginUser(user);
+    location.push("/dashboard/home");
   };
 
   return (
@@ -184,5 +176,9 @@ const LoginPage = () => {
     </div>
   );
 };
+// Can use this method to distribute state to the component (we dont need to give it everything)
+const mapStateToProps = (state) => {
+  return state;
+};
 // Export Component
-export default LoginPage;
+export default connect(mapStateToProps, { loginUser })(LoginPage);

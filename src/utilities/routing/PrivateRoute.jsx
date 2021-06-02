@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ isAuthenticated, children, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -10,7 +10,7 @@ const PrivateRoute = ({ children, ...rest }) => {
         And then check for an isAuthenticated field to determine whether the user is authorized to view the route.
         But for now, we'll use localStorage to simulate behavior until we integrate Redux
         */
-        localStorage.getItem("isAuthenticated") ? (
+        isAuthenticated ? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />

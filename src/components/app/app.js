@@ -10,7 +10,7 @@ import Main from "../smart/dashboard/Main";
 // Utility Imports
 import PrivateRoute from "../../utilities/routing/PrivateRoute";
 
-function App() {
+function App(props) {
   return (
     <Router>
       <div className="App">
@@ -23,7 +23,10 @@ function App() {
         <Route path="/register">
           <RegisterPage />
         </Route>
-        <PrivateRoute path="/dashboard/home">
+        <PrivateRoute
+          isAuthenticated={props.isAuthenticated}
+          path="/dashboard/home"
+        >
           <Main />
         </PrivateRoute>
       </div>
