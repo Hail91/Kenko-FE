@@ -35,11 +35,8 @@ const classNames = (...classes) => {
 const Main = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  /* Method to destroy the current user in browser for logout.
-  This method will eventually update state in Redux,
-  But for now we'll just clear localStorage.
-  */
   const logoutUser = (currentUser) => {
+    /* UPDATE FOR REDUX STATE USAGE */
     localStorage.removeItem("isAuthenticated");
   };
 

@@ -13,5 +13,4 @@ const mapStateToProps = (state) => {
     isAuth: state.authentication.currentUser.isAuthenticated,
   };
 };
-// Export for use in App
 export default connect(mapStateToProps)(PrivateRoute);
