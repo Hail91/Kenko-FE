@@ -1,11 +1,11 @@
 import axios from "axios";
-
+import { saveToLocalStorage } from "../../../utilities/persistence/localStoragePersist";
 // Create action types
 export const LOGIN_USER_START = "LOGIN_USER_START";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAILURE = "LOGIN_USER_FAILURE";
 
-const loginUser = (user, location) => async (dispatch) => {
+const loginUser = (user, location, store) => async (dispatch) => {
   dispatch({ type: LOGIN_USER_START });
   try {
     let response = await axios.post(
@@ -13,6 +13,7 @@ const loginUser = (user, location) => async (dispatch) => {
       user
     );
     dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
+    saveToLocalStorage(store);
     location.push("/dashboard/home");
   } catch (error) {
     console.log({ errorMessage: error });

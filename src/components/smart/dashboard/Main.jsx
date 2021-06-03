@@ -1,4 +1,10 @@
 import React from "react";
+// React router imports
+import { useHistory } from "react-router-dom";
+// Redux imports
+import { connect, useStore } from "react-redux";
+import logoutUser from "../../../store/actions/authActions/logoutUser";
+// Style imports
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
@@ -25,19 +31,23 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#", clickEvent: true },
+  { name: "Sign out", href: "#", clickEvent: "logout" },
 ];
 
 const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const Main = () => {
+const Main = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const logoutUser = () => {
-    /* UPDATE FOR REDUX STATE USAGE */
-    localStorage.removeItem("isAuthenticated");
+  const location = useHistory();
+
+  let storeObject = useStore();
+
+  const logoutUser = (event) => {
+    event.preventDefault();
+    props.logoutUser(location, storeObject);
   };
 
   return (
@@ -232,7 +242,9 @@ const Main = () => {
                             {({ active }) => (
                               <button
                                 onClick={
-                                  item.clickEvent ? logoutUser : undefined
+                                  item.clickEvent === "logout"
+                                    ? logoutUser
+                                    : undefined
                                 }
                               >
                                 <a
@@ -277,5 +289,9 @@ const Main = () => {
     </div>
   );
 };
-// Export component
-export default Main;
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { logoutUser })(Main);

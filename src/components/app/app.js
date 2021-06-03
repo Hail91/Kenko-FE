@@ -23,7 +23,7 @@ function App() {
         <Route path="/register">
           <RegisterPage />
         </Route>
-        <PrivateRoute path="/dashboard/home">
+        <PrivateRoute exact path="/dashboard/home">
           <Main />
         </PrivateRoute>
       </div>
