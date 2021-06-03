@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // Redux imports
-import { connect } from "react-redux";
+import { connect, useStore } from "react-redux";
 import loginUser from "../../../store/actions/authActions/loginUser";
 // Router relevant imports
 import { NavLink, useHistory } from "react-router-dom";
@@ -25,10 +25,11 @@ const LoginPage = (props) => {
     };
   }, []);
 
+  let storeObject = useStore();
+
   const LoginUser = (event) => {
     event.preventDefault();
-    props.loginUser(user);
-    location.push("/dashboard/home");
+    props.loginUser(user, location, storeObject);
   };
 
   return (
