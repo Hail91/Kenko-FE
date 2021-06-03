@@ -27,8 +27,7 @@ const LoginPage = (props) => {
 
   const LoginUser = (event) => {
     event.preventDefault();
-    props.loginUser(user);
-    location.push("/dashboard/home");
+    props.loginUser(user, location);
   };
 
   return (
