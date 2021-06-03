@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router";
 import { connect } from "react-redux";
 
 const PrivateRoute = (props) => {
-  if (!props.isAuth) {
+  if (!props.isAuth && !window.localStorage.getItem("store")) {
     return <Redirect to="/login" />;
   } else return <Route {...props} />;
 };

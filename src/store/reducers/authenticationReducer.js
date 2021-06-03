@@ -76,7 +76,6 @@ const authenticationReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         currentUser: {
-          ...action.payload,
           isAuthenticated: false,
         },
       };
