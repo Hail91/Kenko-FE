@@ -10,6 +10,11 @@ import {
   LOGIN_USER_FAILURE,
 } from "../actions/authActions/loginUser";
 
+import {
+  LOGOUT_USER_START,
+  LOGOUT_USER_SUCCESS,
+} from "../actions/authActions/logoutUser";
+
 const initialState = {
   currentUser: {
     email: "",
@@ -60,6 +65,20 @@ const authenticationReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case LOGOUT_USER_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case LOGOUT_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        currentUser: {
+          ...action.payload,
+          isAuthenticated: false,
+        },
       };
     default:
       return state;

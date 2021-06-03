@@ -1,6 +1,6 @@
 // Action creators
-const LOGOUT_USER_START = "LOGOUT_USER_START";
-const LOGOUT_USER_SUCCESS = "LOGOUT_USER_SUCCESS";
+export const LOGOUT_USER_START = "LOGOUT_USER_START";
+export const LOGOUT_USER_SUCCESS = "LOGOUT_USER_SUCCESS";
 
 // Method to actually logout user by modifying global state
 const logoutUser = (location) => (dispatch) => {

@@ -35,7 +35,7 @@ const classNames = (...classes) => {
 const Main = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const logoutUser = (currentUser) => {
+  const logoutUser = () => {
     /* UPDATE FOR REDUX STATE USAGE */
     localStorage.removeItem("isAuthenticated");
   };
