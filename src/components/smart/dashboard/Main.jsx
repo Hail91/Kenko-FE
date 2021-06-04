@@ -2,7 +2,7 @@ import React from "react";
 // Component imports
 import UserSettings from "../user/UserSettings";
 // React router imports
-import { useHistory, Switch, Route } from "react-router-dom";
+import { useHistory, Switch, Route, Link } from "react-router-dom";
 // Redux imports
 import { connect, useStore } from "react-redux";
 import logoutUser from "../../../store/actions/authActions/logoutUser";
@@ -23,17 +23,37 @@ import {
 import { SearchIcon } from "@heroicons/react/solid";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: false },
-  { name: "Friends", href: "#", icon: UsersIcon, current: false },
-  { name: "Goals", href: "#", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Analytics", href: "#", icon: ChartBarIcon, current: false },
-  { name: "Settings", href: "#", icon: CogIcon, current: false },
+  { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: false },
+  {
+    name: "Friends",
+    href: "/dashboard/friends",
+    icon: UsersIcon,
+    current: false,
+  },
+  { name: "Goals", href: "/dashboard/goals", icon: FolderIcon, current: false },
+  {
+    name: "Calendar",
+    href: "/dashboard/calendar",
+    icon: CalendarIcon,
+    current: false,
+  },
+  {
+    name: "Analytics",
+    href: "/dashboard/analytics",
+    icon: ChartBarIcon,
+    current: false,
+  },
+  {
+    name: "Settings",
+    href: "/dashboard/settings",
+    icon: CogIcon,
+    current: false,
+  },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#", clickEvent: "userSettings" },
-  { name: "Sign out", href: "#", clickEvent: "logout" },
+  { name: "Your Profile", href: "/dashboard/profile" },
+  { name: "Settings", href: "/dashboard/settings", clickEvent: "" },
+  { name: "Sign out", href: "", clickEvent: "logout" },
 ];
 
 const classNames = (...classes) => {
@@ -50,10 +70,6 @@ const Main = (props) => {
   const logoutUser = (event) => {
     event.preventDefault();
     props.logoutUser(location, storeObject);
-  };
-
-  const openSettings = () => {
-    location.push("/dashboard/settings");
   };
 
   return (
@@ -155,9 +171,9 @@ const Main = (props) => {
             <div className="mt-5 flex-1 flex flex-col">
               <nav className="flex-1 px-2 space-y-1">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
                       item.current
                         ? "bg-green-400 text-white"
@@ -170,7 +186,7 @@ const Main = (props) => {
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
@@ -250,20 +266,18 @@ const Main = (props) => {
                                 onClick={
                                   item.clickEvent === "logout"
                                     ? logoutUser
-                                    : item.clickEvent === "userSettings"
-                                    ? openSettings
                                     : null
                                 }
                               >
-                                <a
-                                  href={item.href}
+                                <Link
+                                  to={item.href}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                 >
                                   {item.name}
-                                </a>
+                                </Link>
                               </button>
                             )}
                           </Menu.Item>
@@ -280,9 +294,9 @@ const Main = (props) => {
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-              <h1 className="text-2xl font-semibold text-gray-900">
+              {/* <h1 className="text-2xl font-semibold text-gray-900">
                 Main user dashboard will live here
-              </h1>
+              </h1> */}
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
               <Switch>
