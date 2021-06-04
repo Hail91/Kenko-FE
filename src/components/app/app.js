@@ -23,9 +23,7 @@ function App() {
         <Route path="/register">
           <RegisterPage />
         </Route>
-        <PrivateRoute exact path="/dashboard/home">
-          <Main />
-        </PrivateRoute>
+        <PrivateRoute path="/dashboard" component={Main} />
       </div>
     </Router>
   );

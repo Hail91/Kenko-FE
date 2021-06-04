@@ -1,6 +1,8 @@
 import React from "react";
+// Component imports
+import UserSettings from "../user/UserSettings";
 // React router imports
-import { useHistory } from "react-router-dom";
+import { useHistory, Switch, Route } from "react-router-dom";
 // Redux imports
 import { connect, useStore } from "react-redux";
 import logoutUser from "../../../store/actions/authActions/logoutUser";
@@ -30,7 +32,7 @@ const navigation = [
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Settings", href: "#", clickEvent: "userSettings" },
   { name: "Sign out", href: "#", clickEvent: "logout" },
 ];
 
@@ -48,6 +50,10 @@ const Main = (props) => {
   const logoutUser = (event) => {
     event.preventDefault();
     props.logoutUser(location, storeObject);
+  };
+
+  const openSettings = () => {
+    location.push("/dashboard/settings");
   };
 
   return (
@@ -244,7 +250,9 @@ const Main = (props) => {
                                 onClick={
                                   item.clickEvent === "logout"
                                     ? logoutUser
-                                    : undefined
+                                    : item.clickEvent === "userSettings"
+                                    ? openSettings
+                                    : null
                                 }
                               >
                                 <a
@@ -277,11 +285,13 @@ const Main = (props) => {
               </h1>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-              {/* Replace with your content */}
-              <div className="py-4">
-                <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-              </div>
-              {/* /End replace */}
+              <Switch>
+                <Route
+                  exact
+                  path="/dashboard/settings"
+                  component={UserSettings}
+                />
+              </Switch>
             </div>
           </div>
         </main>
