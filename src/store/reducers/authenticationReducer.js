@@ -38,6 +38,7 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        error: null,
         currentUser: action.payload,
       };
     case REGISTER_USER_FAILURE:
@@ -55,6 +56,7 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        error: null,
         currentUser: {
           ...action.payload,
           isAuthenticated: true,
@@ -75,6 +77,7 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        error: null,
         currentUser: {
           isAuthenticated: false,
         },
