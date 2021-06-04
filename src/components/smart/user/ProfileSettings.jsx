@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileSettings = ({ user }) => {
+const ProfileSettings = ({ currentUser }) => {
   return (
     <>
       <div className="py-6 px-4 sm:p-6 lg:pb-8">
@@ -33,7 +33,7 @@ const ProfileSettings = ({ user }) => {
                   id="username"
                   autoComplete="username"
                   className="focus:ring-green-400 focus:border-green-400 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                  defaultValue={user.handle}
+                  defaultValue={"Hail91"}
                   placeholder="Account username"
                 />
               </div>
@@ -53,7 +53,7 @@ const ProfileSettings = ({ user }) => {
                   id="email"
                   autoComplete="on"
                   className="focus:ring-green-400 focus:border-green-400 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                  defaultValue={user.email}
+                  defaultValue={currentUser.email}
                   placeholder="user@email.com"
                 />
               </div>
@@ -93,7 +93,9 @@ const ProfileSettings = ({ user }) => {
                 >
                   <img
                     className="rounded-full h-full w-full"
-                    src={user.imageUrl}
+                    src={
+                      "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80"
+                    }
                     alt=""
                   />
                 </div>
@@ -120,7 +122,9 @@ const ProfileSettings = ({ user }) => {
             <div className="hidden relative rounded-full overflow-hidden lg:block">
               <img
                 className="relative rounded-full w-40 h-40"
-                src={user.imageUrl}
+                src={
+                  "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80"
+                }
                 alt=""
               />
               <label

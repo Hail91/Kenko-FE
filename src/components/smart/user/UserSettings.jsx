@@ -13,13 +13,6 @@ import {
 } from "@heroicons/react/outline";
 import ProfileSettings from "./ProfileSettings";
 
-const user = {
-  name: "Aaron Gillies",
-  handle: "Hail91",
-  email: "Giants4life91@hotmail.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80",
-};
 const subNavigation = [
   {
     name: "Profile",
@@ -63,7 +56,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const UserSettings = () => {
+const UserSettings = ({ currentUser }) => {
   return (
     <>
       <div>
@@ -106,9 +99,8 @@ const UserSettings = () => {
                   method="POST"
                 >
                   <Switch>
-                    {/* Dynamically Load content based on which section of settings user is in */}
                     <PrivateRoute exact path="/dashboard/settings">
-                      <ProfileSettings user={user} />
+                      <ProfileSettings currentUser={currentUser} />
                     </PrivateRoute>
                   </Switch>
                 </form>

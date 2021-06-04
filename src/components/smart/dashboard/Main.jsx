@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+// Utility imports
+import { loadFromLocalStorage } from "../../../utilities/persistence/localStoragePersist";
 // Component imports
 import UserSettings from "../user/UserSettings";
 // React router imports
@@ -62,6 +64,7 @@ const classNames = (...classes) => {
 
 const Main = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState({});
 
   const location = useHistory();
 
@@ -71,6 +74,13 @@ const Main = (props) => {
     event.preventDefault();
     props.logoutUser(location, storeObject);
   };
+
+  useEffect(() => {
+    // Fetch the current user from the store copy in localStorage
+    let current_user = loadFromLocalStorage();
+    // Update the user state with our store snapshot
+    setUser(current_user.authentication.currentUser.current_user);
+  }, []);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -300,11 +310,9 @@ const Main = (props) => {
             </div>
             <div className="max-w-7xl mx-auto ml-0 px-4 sm:px-6 md:px-8">
               <Switch>
-                <Route
-                  exact
-                  path="/dashboard/settings"
-                  component={UserSettings}
-                />
+                <Route exact path="/dashboard/settings">
+                  <UserSettings currentUser={user} />
+                </Route>
               </Switch>
             </div>
           </div>
