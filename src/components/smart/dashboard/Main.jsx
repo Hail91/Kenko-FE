@@ -298,7 +298,7 @@ const Main = (props) => {
                 Main user dashboard will live here
               </h1> */}
             </div>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div className="max-w-7xl mx-auto ml-0 px-4 sm:px-6 md:px-8">
               <Switch>
                 <Route
                   exact
