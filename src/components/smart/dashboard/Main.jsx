@@ -76,10 +76,15 @@ const Main = (props) => {
   };
 
   useEffect(() => {
-    // Fetch the current user from the store copy in localStorage
-    let current_user = loadFromLocalStorage();
-    // Update the user state with our store snapshot
-    setUser(current_user.authentication.currentUser.current_user);
+    // Fetch the current global state store
+    let current_state = loadFromLocalStorage();
+    setUser({
+      // Spread in the auth data about the user
+      ...current_state.authentication.currentUser.current_user,
+      // Fetch the rest of the information from default user object in state
+      site_url: current_state.user.site_url,
+      bio: current_state.user.bio,
+    });
   }, []);
 
   return (
@@ -279,15 +284,14 @@ const Main = (props) => {
                                     : null
                                 }
                               >
-                                <Link
-                                  to={item.href}
+                                <p
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                 >
                                   {item.name}
-                                </Link>
+                                </p>
                               </button>
                             )}
                           </Menu.Item>
@@ -303,11 +307,7 @@ const Main = (props) => {
 
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-              {/* <h1 className="text-2xl font-semibold text-gray-900">
-                Main user dashboard will live here
-              </h1> */}
-            </div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8"></div>
             <div className="max-w-7xl mx-auto ml-0 px-4 sm:px-6 md:px-8">
               <Switch>
                 <Route exact path="/dashboard/settings">
