@@ -5,12 +5,13 @@ import {
 } from "../actions/userActions/updateUser";
 
 const initialState = {
-  user: {
-    id: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-  },
+  id: "",
+  username: "",
+  email: "",
+  first_name: "",
+  last_name: "",
+  site_url: "",
+  bio: "",
   isLoading: false,
   error: null,
 };
@@ -26,7 +27,7 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        ...action.payload,
         isLoading: false,
         error: null,
       };

@@ -76,8 +76,15 @@ const Main = (props) => {
   };
 
   useEffect(() => {
-    let current_user = loadFromLocalStorage();
-    setUser(current_user.authentication.currentUser.current_user);
+    // Fetch the current global state store
+    let current_state = loadFromLocalStorage();
+    setUser({
+      // Spread in the auth data about the user
+      ...current_state.authentication.currentUser.current_user,
+      // Fetch the rest of the information from default user object in state
+      site_url: current_state.user.site_url,
+      bio: current_state.user.bio,
+    });
   }, []);
 
   return (
@@ -285,7 +292,6 @@ const Main = (props) => {
                                 >
                                   {item.name}
                                 </p>
-                                {/* </Link> */}
                               </button>
                             )}
                           </Menu.Item>
