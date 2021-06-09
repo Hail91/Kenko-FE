@@ -1,6 +1,7 @@
 import React from "react";
 // Router imports
-import { Switch } from "react-router-dom";
+import { Switch, Link } from "react-router-dom";
+// Utility
 import PrivateRoute from "../../../utilities/routing/PrivateRoute";
 // Style imports
 import {
@@ -11,14 +12,16 @@ import {
   UserCircleIcon,
   ViewGridAddIcon,
 } from "@heroicons/react/outline";
+// Components
 import ProfileSettings from "./ProfileSettings";
+import AccountSettings from "./AccountSettings";
 
 const subNavigation = [
   {
     name: "Profile",
-    href: "/dashboard/settings",
+    href: "/dashboard/settings/profile",
     icon: UserCircleIcon,
-    current: true,
+    current: false,
   },
   {
     name: "Account",
@@ -67,9 +70,9 @@ const UserSettings = ({ currentUser }) => {
                 <aside className="py-6 lg:col-span-3">
                   <nav className="space-y-1">
                     {subNavigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current
                             ? "bg-teal-50 border-green-500 text-green-500 hover:border-green-400 hover:text-green-400 transition-all ease-in-out"
@@ -88,7 +91,7 @@ const UserSettings = ({ currentUser }) => {
                           aria-hidden="true"
                         />
                         <span className="truncate">{item.name}</span>
-                      </a>
+                      </Link>
                     ))}
                   </nav>
                 </aside>
@@ -99,8 +102,11 @@ const UserSettings = ({ currentUser }) => {
                   method="POST"
                 >
                   <Switch>
-                    <PrivateRoute exact path="/dashboard/settings">
+                    <PrivateRoute path="/dashboard/settings/profile">
                       <ProfileSettings currentUser={currentUser} />
+                    </PrivateRoute>
+                    <PrivateRoute path="/dashboard/settings/account">
+                      <AccountSettings />
                     </PrivateRoute>
                   </Switch>
                 </form>
