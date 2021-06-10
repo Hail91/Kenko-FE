@@ -16,9 +16,20 @@ import {
 } from "../actions/authActions/logoutUser";
 
 const initialState = {
-  currentUser: {
-    isAuthenticated: false,
+  user_profile: {
+    id: null,
+    username: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    site_url: "",
+    bio: "",
+    facebook_url: "",
+    twitter_url: "",
+    instagram_url: "",
+    tiktok_url: "",
   },
+  isAuthenticated: false,
   isLoading: false,
   error: null,
 };
@@ -33,14 +44,11 @@ const authenticationReducer = (state = initialState, action) => {
     case REGISTER_USER_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        error: null,
-        currentUser: action.payload,
+        user_profile: action.payload,
       };
     case REGISTER_USER_FAILURE:
       return {
         ...state,
-        isLoading: false,
         error: action.payload,
       };
     case LOGIN_USER_START:
@@ -52,16 +60,14 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: null,
-        currentUser: {
+        isAuthenticated: true,
+        user_profile: {
           ...action.payload,
-          isAuthenticated: true,
         },
       };
     case LOGIN_USER_FAILURE:
       return {
         ...state,
-        isLoading: false,
         error: action.payload,
       };
     case LOGOUT_USER_START:
@@ -72,11 +78,10 @@ const authenticationReducer = (state = initialState, action) => {
     case LOGOUT_USER_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        error: null,
-        currentUser: {
-          isAuthenticated: false,
+        user_profile: {
+          ...initialState.user_profile,
         },
+        isAuthenticated: false,
       };
     default:
       return state;
