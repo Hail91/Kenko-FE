@@ -1,6 +1,10 @@
 import React from "react";
+// Redux imports
+import { connect } from "react-redux";
+import updateUser from "../../../store/actions/userActions/updateUser";
+import useInput from "../../../custom_hooks/useInput";
 
-const ProfileSettings = ({ currentUser }) => {
+const ProfileSettings = (props) => {
   return (
     <>
       <div className="py-6 px-4 sm:p-6 lg:pb-8">
@@ -33,7 +37,6 @@ const ProfileSettings = ({ currentUser }) => {
                   id="username"
                   autoComplete="username"
                   className="focus:ring-green-400 focus:border-green-400 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                  defaultValue={"Hail91"}
                   placeholder="Account username"
                 />
               </div>
@@ -53,7 +56,6 @@ const ProfileSettings = ({ currentUser }) => {
                   id="email"
                   autoComplete="on"
                   className="focus:ring-green-400 focus:border-green-400 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                  defaultValue={currentUser.email}
                   placeholder="user@email.com"
                 />
               </div>
@@ -68,8 +70,8 @@ const ProfileSettings = ({ currentUser }) => {
               </label>
               <div className="mt-1">
                 <textarea
-                  id="about"
-                  name="about"
+                  id="bio"
+                  name="bio"
                   rows={3}
                   className="shadow-sm focus:ring-green-500 focus:border-green-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                   placeholder="Tell us about yourself!"
@@ -189,8 +191,8 @@ const ProfileSettings = ({ currentUser }) => {
             <input
               placeholder="Personal website or blog, etc."
               type="text"
-              name="url"
-              id="url"
+              name="site_url"
+              id="site_url"
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
             />
           </div>
@@ -204,6 +206,7 @@ const ProfileSettings = ({ currentUser }) => {
           Cancel
         </button>
         <button
+          onClick={updateUser}
           type="submit"
           className="ml-5 bg-green-500 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-green-400 focus:outline-none transition-all ease-in-out"
         >
@@ -214,4 +217,9 @@ const ProfileSettings = ({ currentUser }) => {
   );
 };
 
-export default ProfileSettings;
+// This will require changes, current shape of state in Redux store is poor
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { updateUser })(ProfileSettings);

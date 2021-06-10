@@ -17,10 +17,6 @@ import {
 
 const initialState = {
   currentUser: {
-    email: "",
-    password: "",
-    first_name: "",
-    last_name: "",
     isAuthenticated: false,
   },
   isLoading: false,
