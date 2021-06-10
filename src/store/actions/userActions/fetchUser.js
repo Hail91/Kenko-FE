@@ -1,5 +1,4 @@
 import axios from "axios";
-import { saveToLocalStorage } from "../../../utilities/persistence/localStoragePersist";
 
 export const FETCH_USER_START = "FETCH_USER_START";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";

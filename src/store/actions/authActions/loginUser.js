@@ -1,5 +1,4 @@
 import axios from "axios";
-import { saveToLocalStorage } from "../../../utilities/persistence/localStoragePersist";
 // Create action types
 export const LOGIN_USER_START = "LOGIN_USER_START";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
