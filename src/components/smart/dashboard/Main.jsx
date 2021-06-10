@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Component imports
 import UserSettings from "../user/UserSettings";
 // React router imports
@@ -64,11 +64,22 @@ const classNames = (...classes) => {
 
 const Main = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const location = useHistory();
 
   const storeObject = useStore();
   const rootPath = "/dashboard/settings";
+
+  const id = props.authentication.user_profile.current_user.id;
+
+  useEffect(() => {
+    props.fetchUser(id);
+  }, []);
+
+  // Fetch and store Id from Redux store auth object
+  // Update user data in Redux store when component mounts
+  // Settings component will then be able to access the user data once it's connected to the store
 
   const logoutUser = (event) => {
     event.preventDefault();

@@ -9,7 +9,11 @@ const loginUser = (user, location, store) => async (dispatch) => {
   try {
     let response = await axios.post(
       "http://localhost:8000/api/auth/login",
-      user
+      user,
+      {
+        withCredentials: true,
+        credentials: "include",
+      }
     );
     dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
     location.push("/dashboard/home");
