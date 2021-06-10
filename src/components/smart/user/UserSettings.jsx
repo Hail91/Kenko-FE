@@ -59,7 +59,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const UserSettings = ({ currentUser }) => {
+const UserSettings = ({ currentUser, root, store }) => {
   return (
     <>
       <div>
@@ -96,20 +96,19 @@ const UserSettings = ({ currentUser }) => {
                   </nav>
                 </aside>
 
-                <form
-                  className="divide-y divide-gray-200 lg:col-span-9"
-                  action="#"
-                  method="POST"
-                >
+                <div className="divide-y divide-gray-200 lg:col-span-9">
                   <Switch>
-                    <PrivateRoute path="/dashboard/settings/profile">
-                      <ProfileSettings currentUser={currentUser} />
+                    <PrivateRoute path={`${root}/profile`}>
+                      <ProfileSettings
+                        store={store}
+                        currentUser={currentUser}
+                      />
                     </PrivateRoute>
-                    <PrivateRoute path="/dashboard/settings/account">
-                      <AccountSettings />
+                    <PrivateRoute path={`${root}/account`}>
+                      <AccountSettings store={store} />
                     </PrivateRoute>
                   </Switch>
-                </form>
+                </div>
               </div>
             </div>
           </div>

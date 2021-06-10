@@ -9,6 +9,7 @@ import PrivateRoute from "../../../utilities/routing/PrivateRoute";
 // Redux imports
 import { connect, useStore } from "react-redux";
 import logoutUser from "../../../store/actions/authActions/logoutUser";
+import fetchUser from "../../../store/actions/userActions/fetchUser";
 // Style imports
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
@@ -70,23 +71,12 @@ const Main = (props) => {
   const location = useHistory();
 
   const storeObject = useStore();
+  const rootPath = "/dashboard/settings";
 
   const logoutUser = (event) => {
     event.preventDefault();
     props.logoutUser(location, storeObject);
   };
-
-  useEffect(() => {
-    // Fetch the current global state store
-    let current_state = loadFromLocalStorage();
-    setUser({
-      // Spread in the auth data about the user
-      ...current_state.authentication.currentUser.current_user,
-      // Fetch the rest of the information from default user object in state
-      site_url: current_state.user.site_url,
-      bio: current_state.user.bio,
-    });
-  }, []);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -312,7 +302,11 @@ const Main = (props) => {
             <div className="max-w-7xl mx-auto ml-0 px-4 sm:px-6 md:px-8">
               <Switch>
                 <PrivateRoute path="/dashboard/settings">
-                  <UserSettings currentUser={user} />
+                  <UserSettings
+                    store={storeObject}
+                    currentUser={user}
+                    root={rootPath}
+                  />
                 </PrivateRoute>
               </Switch>
             </div>
@@ -327,4 +321,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { logoutUser })(Main);
+export default connect(mapStateToProps, { logoutUser, fetchUser })(Main);

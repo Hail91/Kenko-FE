@@ -1,4 +1,9 @@
 import {
+  FETCH_USER_FAILURE,
+  FETCH_USER_START,
+  FETCH_USER_SUCCESS,
+} from "../actions/userActions/fetchUser";
+import {
   UPDATE_USER_START,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
@@ -18,6 +23,25 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_USER_START:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        ...action.payload,
+      };
+    case FETCH_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     case UPDATE_USER_START:
       return {
         ...state,
