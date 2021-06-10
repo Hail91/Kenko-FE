@@ -2,7 +2,6 @@ import React from "react";
 // Redux imports
 import { connect } from "react-redux";
 import updateUser from "../../../store/actions/userActions/updateUser";
-import useInput from "../../../custom_hooks/useInput";
 
 const ProfileSettings = (props) => {
   return (

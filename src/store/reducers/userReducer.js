@@ -10,13 +10,19 @@ import {
 } from "../actions/userActions/updateUser";
 
 const initialState = {
-  id: "",
-  username: "",
-  email: "",
-  first_name: "",
-  last_name: "",
-  site_url: "",
-  bio: "",
+  user_profile: {
+    id: null,
+    username: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    site_url: "",
+    bio: "",
+    facebook_url: "",
+    twitter_url: "",
+    instagram_url: "",
+    tiktok_url: "",
+  },
   isLoading: false,
   error: null,
 };

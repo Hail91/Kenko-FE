@@ -1,5 +1,4 @@
 import axios from "axios";
-import { saveToLocalStorage } from "../../../utilities/persistence/localStoragePersist";
 // Create action types
 export const LOGIN_USER_START = "LOGIN_USER_START";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
@@ -10,10 +9,13 @@ const loginUser = (user, location, store) => async (dispatch) => {
   try {
     let response = await axios.post(
       "http://localhost:8000/api/auth/login",
-      user
+      user,
+      {
+        withCredentials: true,
+        credentials: "include",
+      }
     );
     dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
-    saveToLocalStorage(store);
     location.push("/dashboard/home");
   } catch (error) {
     let errorReason = error.response.data.message;

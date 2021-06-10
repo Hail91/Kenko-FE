@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-// Utility imports
-import { loadFromLocalStorage } from "../../../utilities/persistence/localStoragePersist";
 // Component imports
 import UserSettings from "../user/UserSettings";
 // React router imports
-import { useHistory, Switch, Route, Link } from "react-router-dom";
+import { useHistory, Switch, Link } from "react-router-dom";
 import PrivateRoute from "../../../utilities/routing/PrivateRoute";
 // Redux imports
 import { connect, useStore } from "react-redux";
@@ -66,12 +64,22 @@ const classNames = (...classes) => {
 
 const Main = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [user, setUser] = useState({});
+  const [userId, setUserId] = useState(null);
 
   const location = useHistory();
 
   const storeObject = useStore();
   const rootPath = "/dashboard/settings";
+
+  const id = props.authentication.user_profile.current_user.id;
+
+  useEffect(() => {
+    props.fetchUser(id);
+  }, []);
+
+  // Fetch and store Id from Redux store auth object
+  // Update user data in Redux store when component mounts
+  // Settings component will then be able to access the user data once it's connected to the store
 
   const logoutUser = (event) => {
     event.preventDefault();
@@ -302,11 +310,7 @@ const Main = (props) => {
             <div className="max-w-7xl mx-auto ml-0 px-4 sm:px-6 md:px-8">
               <Switch>
                 <PrivateRoute path="/dashboard/settings">
-                  <UserSettings
-                    store={storeObject}
-                    currentUser={user}
-                    root={rootPath}
-                  />
+                  <UserSettings store={storeObject} root={rootPath} />
                 </PrivateRoute>
               </Switch>
             </div>
