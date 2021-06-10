@@ -1,4 +1,3 @@
-// On every app load, save the current Redux state to localStorage API
 export const saveToLocalStorage = (store) => {
   try {
     const serializedStore = JSON.stringify(store.getState());
@@ -7,7 +6,7 @@ export const saveToLocalStorage = (store) => {
     console.log({ errorMessage: error });
   }
 };
-// Load from localStorage API
+
 export const loadFromLocalStorage = () => {
   try {
     const serializedStore = window.localStorage.getItem("store");

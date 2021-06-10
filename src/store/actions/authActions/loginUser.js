@@ -13,7 +13,6 @@ const loginUser = (user, location, store) => async (dispatch) => {
       user
     );
     dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
-    saveToLocalStorage(store);
     location.push("/dashboard/home");
   } catch (error) {
     let errorReason = error.response.data.message;
