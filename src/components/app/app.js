@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 // Default Styles
 import "./app.css";
 // Import client side Routing
@@ -11,6 +12,14 @@ import Main from "../smart/dashboard/Main";
 import PrivateRoute from "../../utilities/routing/PrivateRoute";
 
 function App() {
+  const fetchCsrf = async () => {
+    let response = await axios.get("http://localhost:8000/api/auth/csrf");
+    axios.defaults.headers.common["X-CSRF-Token"] = response.csrfToken;
+  };
+  useEffect(() => {
+    fetchCsrf();
+  }, []);
+
   return (
     <Router>
       <div className="App">
