@@ -14,7 +14,7 @@ import PrivateRoute from "../../utilities/routing/PrivateRoute";
 function App() {
   const fetchCsrf = async () => {
     let response = await axios.get("http://localhost:8000/api/auth/csrf");
-    console.log(response);
+    axios.defaults.headers.common["X-CSRF-Token"] = response.csrfToken;
   };
   useEffect(() => {
     fetchCsrf();
