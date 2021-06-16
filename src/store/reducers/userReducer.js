@@ -1,3 +1,4 @@
+import { CLEAR_USER } from "../actions/authActions/logoutUser";
 import {
   FETCH_USER_FAILURE,
   FETCH_USER_START,
@@ -40,7 +41,9 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: null,
-        ...action.payload,
+        user_profile: {
+          ...action.payload,
+        },
       };
     case FETCH_USER_FAILURE:
       return {
@@ -66,6 +69,12 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case CLEAR_USER:
+      return {
+        user_profile: {},
+        isLoading: false,
+        error: null,
       };
     default:
       return state;

@@ -77,10 +77,6 @@ const Main = (props) => {
     props.fetchUser(id);
   }, []);
 
-  // Fetch and store Id from Redux store auth object
-  // Update user data in Redux store when component mounts
-  // Settings component will then be able to access the user data once it's connected to the store
-
   const logoutUser = (event) => {
     event.preventDefault();
     props.logoutUser(location, storeObject);
