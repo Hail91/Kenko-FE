@@ -8,7 +8,7 @@ const loginUser = (user, location) => async (dispatch) => {
   dispatch({ type: LOGIN_USER_START });
   try {
     let response = await axios.post(
-      "http://localhost:8000/api/auth/login",
+      `${process.env.REACT_APP_DEV_URL}/api/auth/login`,
       user,
       {
         withCredentials: true,
