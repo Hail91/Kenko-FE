@@ -12,11 +12,11 @@ import Main from "../smart/dashboard/Main";
 import PrivateRoute from "../../utilities/routing/PrivateRoute";
 
 function App() {
-  const fetchCsrf = async () => {
-    let response = await axios.get("http://localhost:8000/api/auth/csrf");
-    axios.defaults.headers.common["X-CSRF-Token"] = response.csrfToken;
-  };
   useEffect(() => {
+    const fetchCsrf = async () => {
+      let response = await axios.get("http://localhost:8000/api/auth/csrf");
+      axios.defaults.headers.post["csrf-token"] = response.data.csrfToken;
+    };
     fetchCsrf();
   }, []);
 

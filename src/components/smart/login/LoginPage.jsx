@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 // Redux imports
 import { connect, useStore } from "react-redux";
 import loginUser from "../../../store/actions/authActions/loginUser";
@@ -24,6 +25,8 @@ const LoginPage = (props) => {
       localStorage.removeItem("registerStatus");
     };
   }, []);
+
+  console.log(axios.defaults.headers);
 
   let storeObject = useStore();
 
