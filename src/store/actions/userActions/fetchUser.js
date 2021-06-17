@@ -8,7 +8,7 @@ const fetchUser = (userId) => async (dispatch) => {
   dispatch({ type: FETCH_USER_START });
   try {
     let response = await axios.get(
-      `http://localhost:8000/api/users/${userId}`,
+      `${process.env.REACT_APP_DEV_URL}/api/users/${userId}`,
       {
         withCredentials: true,
         credentials: "include",
