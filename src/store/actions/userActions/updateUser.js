@@ -8,7 +8,10 @@ export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 const updateUser = (userId, user, store) => async (dispatch) => {
   dispatch({ type: UPDATE_USER_START });
   try {
-    let response = axios.put(`http://localhost:8000/api/users/${userId}`, user);
+    let response = axios.put(
+      `${process.env.REACT_APP_DEV_URL}/api/users/${userId}`,
+      user
+    );
     dispatch({ type: UPDATE_USER_SUCCESS, payload: response.data });
     saveToLocalStorage(store);
   } catch (error) {

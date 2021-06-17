@@ -8,7 +8,7 @@ const registerUser = (userInfo) => async (dispatch) => {
   dispatch({ type: REGISTER_USER_START });
   try {
     let response = await axios.post(
-      "http://localhost:8000/api/auth/register",
+      `${process.env.REACT_APP_DEV_URL}/api/auth/register`,
       userInfo
     );
     dispatch({ type: REGISTER_USER_SUCCESS, payload: response.data });
