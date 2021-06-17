@@ -26,8 +26,6 @@ const LoginPage = (props) => {
     };
   }, []);
 
-  console.log(axios.defaults.headers);
-
   let storeObject = useStore();
 
   const LoginUser = (event) => {
