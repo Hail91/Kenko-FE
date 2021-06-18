@@ -31,6 +31,7 @@ const ProfileSettings = (props) => {
                   kenko.com/
                 </span>
                 <input
+                  defaultValue={props.user.user_profile.username}
                   type="text"
                   name="username"
                   id="username"
@@ -50,6 +51,7 @@ const ProfileSettings = (props) => {
               </label>
               <div className="mt-1 rounded-md shadow-sm flex">
                 <input
+                  defaultValue={props.user.user_profile.email}
                   type="text"
                   name="email"
                   id="email"

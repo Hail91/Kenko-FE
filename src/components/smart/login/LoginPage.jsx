@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+// Utility
+import * as queryString from "query-string";
 // Redux imports
 import { connect, useStore } from "react-redux";
 import loginUser from "../../../store/actions/authActions/loginUser";
+import fbAuth from "../../../store/actions/socialAuthActions/fbAuth";
 // Router relevant imports
 import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
@@ -16,20 +19,36 @@ const LoginPage = (props) => {
     email: "",
     password: "",
   });
+  const [fbParams, setFbParams] = useState(
+    queryString.stringify({
+      client_id: process.env.REACT_APP_FB_APP_ID,
+      redirect_uri: `${process.env.REACT_APP_CLIENT_URL}/home/dashboard`,
+      scope: "email",
+      response_type: "code",
+      auth_type: "rerequest",
+      display: "popup",
+    })
+  );
+  const [fbUrl, setFbUrl] = useState("");
   const [incorrectLogin, setIncorrectLogin] = useState(false);
   const location = useHistory();
 
+  let storeObject = useStore();
+
   useEffect(() => {
+    setFbUrl(`https://www.facebook.com/v11.0/dialog/oauth?${fbParams}`);
     return () => {
       localStorage.removeItem("registerStatus");
     };
-  }, []);
-
-  let storeObject = useStore();
+  }, [fbParams]);
 
   const LoginUser = (event) => {
     event.preventDefault();
     props.loginUser(user, location, storeObject);
+  };
+
+  const handleFacebookAuth = () => {
+    props.fbAuth(location);
   };
 
   return (
@@ -169,7 +188,7 @@ const LoginPage = (props) => {
                 </span>
               </div>
             </div>
-            <ExternalLogin />
+            <ExternalLogin facebookLogin={fbUrl} fbAuth={handleFacebookAuth} />
           </div>
         </div>
       </div>
@@ -179,4 +198,4 @@ const LoginPage = (props) => {
 const mapStateToProps = (state) => {
   return state;
 };
-export default connect(mapStateToProps, { loginUser })(LoginPage);
+export default connect(mapStateToProps, { loginUser, fbAuth })(LoginPage);

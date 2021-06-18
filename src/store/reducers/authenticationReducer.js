@@ -14,6 +14,10 @@ import {
   LOGOUT_USER_START,
   LOGOUT_USER_SUCCESS,
 } from "../actions/authActions/logoutUser";
+import {
+  FB_AUTH_START,
+  FB_AUTH_SUCCESS,
+} from "../actions/socialAuthActions/fbAuth";
 
 const initialState = {
   user_profile: {
@@ -82,6 +86,18 @@ const authenticationReducer = (state = initialState, action) => {
           ...initialState.user_profile,
         },
         isAuthenticated: false,
+      };
+    // SOCIAL MEDIA AUTHENTICATION REDUCERS
+    case FB_AUTH_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FB_AUTH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
       };
     default:
       return state;
