@@ -4,6 +4,7 @@ import * as queryString from "query-string";
 // Redux imports
 import { connect, useStore } from "react-redux";
 import loginUser from "../../../store/actions/authActions/loginUser";
+import fbAuth from "../../../store/actions/socialAuthActions/fbAuth";
 // Router relevant imports
 import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
@@ -32,6 +33,8 @@ const LoginPage = (props) => {
   const [incorrectLogin, setIncorrectLogin] = useState(false);
   const location = useHistory();
 
+  let storeObject = useStore();
+
   useEffect(() => {
     setFbUrl(`https://www.facebook.com/v11.0/dialog/oauth?${fbParams}`);
     return () => {
@@ -39,11 +42,13 @@ const LoginPage = (props) => {
     };
   }, [fbParams]);
 
-  let storeObject = useStore();
-
   const LoginUser = (event) => {
     event.preventDefault();
     props.loginUser(user, location, storeObject);
+  };
+
+  const FacebookAuth = () => {
+    props.fbAuth(location);
   };
 
   return (
@@ -193,4 +198,4 @@ const LoginPage = (props) => {
 const mapStateToProps = (state) => {
   return state;
 };
-export default connect(mapStateToProps, { loginUser })(LoginPage);
+export default connect(mapStateToProps, { loginUser, fbAuth })(LoginPage);
