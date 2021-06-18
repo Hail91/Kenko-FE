@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+// Utility
+import * as queryString from "query-string";
 // Component imports
 import UserSettings from "../user/UserSettings";
 // React router imports
@@ -8,6 +10,7 @@ import PrivateRoute from "../../../utilities/routing/PrivateRoute";
 import { connect, useStore } from "react-redux";
 import logoutUser from "../../../store/actions/authActions/logoutUser";
 import fetchUser from "../../../store/actions/userActions/fetchUser";
+import fbAuth from "../../../store/actions/socialAuthActions/fbAuth";
 // Style imports
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
@@ -64,17 +67,22 @@ const classNames = (...classes) => {
 
 const Main = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userId, setUserId] = useState(null);
 
   const location = useHistory();
 
   const storeObject = useStore();
   const rootPath = "/dashboard/settings";
 
+  // Will have to throw this in component state and update with setter
   const id = props.authentication.user_profile.current_user.id;
 
   useEffect(() => {
-    props.fetchUser(id);
+    let queryParams = queryString.parseUrl(location.location.pathname);
+    if (queryParams.hasOwnProperty("code")) {
+      props.fbAuth();
+    }
+    // Fetch the user if the id exists, if id does not exist on props, it was a social media login...respond accordingly...**TO DO**
+    if (id) props.fetchUser(id);
   }, []);
 
   const logoutUser = (event) => {
@@ -306,7 +314,7 @@ const Main = (props) => {
             <div className="max-w-7xl mx-auto ml-0 px-4 sm:px-6 md:px-8">
               <Switch>
                 <PrivateRoute path="/dashboard/settings">
-                  <UserSettings store={storeObject} root={rootPath} />
+                  <UserSettings root={rootPath} />
                 </PrivateRoute>
               </Switch>
             </div>
@@ -321,4 +329,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { logoutUser, fetchUser })(Main);
+export default connect(mapStateToProps, { logoutUser, fetchUser, fbAuth })(
+  Main
+);

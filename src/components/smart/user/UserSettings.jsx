@@ -59,7 +59,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const UserSettings = ({ currentUser, root, store }) => {
+const UserSettings = ({ root }) => {
   return (
     <>
       <div>
@@ -99,13 +99,10 @@ const UserSettings = ({ currentUser, root, store }) => {
                 <div className="divide-y divide-gray-200 lg:col-span-9">
                   <Switch>
                     <PrivateRoute path={`${root}/profile`}>
-                      <ProfileSettings
-                        store={store}
-                        currentUser={currentUser}
-                      />
+                      <ProfileSettings />
                     </PrivateRoute>
                     <PrivateRoute path={`${root}/account`}>
-                      <AccountSettings store={store} />
+                      <AccountSettings />
                     </PrivateRoute>
                   </Switch>
                 </div>

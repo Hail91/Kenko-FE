@@ -1,10 +1,11 @@
 import React from "react";
 
-const ExternalLogin = ({ facebookLogin }) => {
+const ExternalLogin = ({ facebookLogin, fbAuth }) => {
   return (
     <div className="mt-6 grid grid-cols-2 gap-3">
       <div>
         <a
+          onClick={fbAuth}
           href={facebookLogin}
           className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
         >

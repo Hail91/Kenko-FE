@@ -15,7 +15,6 @@ import {
   LOGOUT_USER_SUCCESS,
 } from "../actions/authActions/logoutUser";
 import {
-  FB_AUTH_FAILURE,
   FB_AUTH_START,
   FB_AUTH_SUCCESS,
 } from "../actions/socialAuthActions/fbAuth";
@@ -99,12 +98,6 @@ const authenticationReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-      };
-    case FB_AUTH_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        isAuthenticated: false,
       };
     default:
       return state;

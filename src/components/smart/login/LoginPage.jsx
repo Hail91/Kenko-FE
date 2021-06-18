@@ -47,7 +47,7 @@ const LoginPage = (props) => {
     props.loginUser(user, location, storeObject);
   };
 
-  const FacebookAuth = () => {
+  const handleFacebookAuth = () => {
     props.fbAuth(location);
   };
 
@@ -188,7 +188,7 @@ const LoginPage = (props) => {
                 </span>
               </div>
             </div>
-            <ExternalLogin facebookLogin={fbUrl} />
+            <ExternalLogin facebookLogin={fbUrl} fbAuth={handleFacebookAuth} />
           </div>
         </div>
       </div>
