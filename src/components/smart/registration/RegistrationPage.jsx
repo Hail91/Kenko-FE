@@ -9,7 +9,6 @@ import FormValidator from "../../../utilities/validators/FormValidator";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
 // Component imports
-import ExternalLogin from "../shared/ExternalLogin";
 import ErrorMessage from "../../presentational/flash-messages/ErrorMessage";
 import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 import PasswordCriteria from "../../presentational/utility/PasswordCriteria";
@@ -206,7 +205,6 @@ const RegistrationPage = (props) => {
               </button>
             </div>
           </form>
-
           {/* <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
