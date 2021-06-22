@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // Utility
 import * as queryString from "query-string";
 // Redux imports
-import { connect, useStore } from "react-redux";
+import { connect } from "react-redux";
 import loginUser from "../../../store/actions/authActions/loginUser";
 import fbAuth from "../../../store/actions/socialAuthActions/fbAuth";
 // Router relevant imports
@@ -74,10 +74,17 @@ const LoginPage = (props) => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white py-2 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6">
+            {props?.authentication?.error?.status === 401 ||
+            props?.authentication?.error?.status === 500 ? (
+              <p className="text-sm font-medium text-red-800">
+                {props.authentication.error.message}
+              </p>
+            ) : (
+              ""
+            )}
             <div>
-              {incompleteEmail ? <p>The Email field is required</p> : ""}
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -107,9 +114,15 @@ const LoginPage = (props) => {
                   onChange={setUser}
                 />
               </div>
+              {incompleteEmail ? (
+                <p className="text-sm font-medium text-red-800">
+                  *The Email field is required
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div>
-              {incompletePassword ? <p>The Password field is required</p> : ""}
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
@@ -130,6 +143,13 @@ const LoginPage = (props) => {
                   onChange={setUser}
                 />
               </div>
+              {incompletePassword ? (
+                <p className="text-sm font-medium text-red-800">
+                  *The Password field is required
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
