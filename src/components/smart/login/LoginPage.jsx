@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 // Utility
 import * as queryString from "query-string";
 // Redux imports
-import { connect, useStore } from "react-redux";
+import { connect } from "react-redux";
 import loginUser from "../../../store/actions/authActions/loginUser";
 import fbAuth from "../../../store/actions/socialAuthActions/fbAuth";
 // Router relevant imports
 import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
 import ExternalLogin from "../shared/ExternalLogin";
-import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
-import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
 
@@ -18,6 +16,7 @@ const LoginPage = (props) => {
   const [user, setUser] = useInput({
     email: "",
     password: "",
+    remember_me: false,
   });
   const [fbParams, setFbParams] = useState(
     queryString.stringify({
@@ -30,21 +29,25 @@ const LoginPage = (props) => {
     })
   );
   const [fbUrl, setFbUrl] = useState("");
-  const [incorrectLogin, setIncorrectLogin] = useState(false);
+  const [incompleteEmail, setIncompleteEmail] = useState(false);
+  const [incompletePassword, setIncompletePassword] = useState(false);
   const location = useHistory();
-
-  let storeObject = useStore();
 
   useEffect(() => {
     setFbUrl(`https://www.facebook.com/v11.0/dialog/oauth?${fbParams}`);
-    return () => {
-      localStorage.removeItem("registerStatus");
-    };
   }, [fbParams]);
 
   const LoginUser = (event) => {
     event.preventDefault();
-    props.loginUser(user, location, storeObject);
+    if (!user.email) {
+      setIncompleteEmail(true);
+    }
+    if (!user.password) {
+      setIncompletePassword(true);
+    }
+    if (user.email && user.password) {
+      props.loginUser(user, location);
+    }
   };
 
   const handleFacebookAuth = () => {
@@ -69,18 +72,19 @@ const LoginPage = (props) => {
             register here
           </NavLink>
         </p>
-        {localStorage.getItem("registerStatus") === "true" ? (
-          <SuccessMessage type={"Registered!"} />
-        ) : localStorage.getItem("registerStatus") === "false" ? (
-          <FailureMessage type={"Register"} />
-        ) : (
-          <></>
-        )}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white py-2 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6">
+            {props?.authentication?.error?.status === 401 ||
+            props?.authentication?.error?.status === 500 ? (
+              <p className="text-sm font-medium text-red-800">
+                {props.authentication.error.message}
+              </p>
+            ) : (
+              ""
+            )}
             <div>
               <label
                 htmlFor="email"
@@ -111,6 +115,13 @@ const LoginPage = (props) => {
                   onChange={setUser}
                 />
               </div>
+              {incompleteEmail ? (
+                <p className="text-sm font-medium text-red-800">
+                  *The Email field is required
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div>
               <label
@@ -133,10 +144,19 @@ const LoginPage = (props) => {
                   onChange={setUser}
                 />
               </div>
+              {incompletePassword ? (
+                <p className="text-sm font-medium text-red-800">
+                  *The Password field is required
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
+                  value={user.remember_me}
+                  onChange={setUser}
                   id="remember_me"
                   name="remember_me"
                   type="checkbox"
@@ -159,13 +179,6 @@ const LoginPage = (props) => {
                 </a>
               </div>
             </div>
-
-            {incorrectLogin ? (
-              <p className="mb-4 text-red-500">
-                Incorrect credentials provided, please try again
-              </p>
-            ) : null}
-
             <div>
               <button
                 onClick={LoginUser}
@@ -196,6 +209,7 @@ const LoginPage = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  return state;
+  // Only authentication store data is necessary in this component, so return that.
+  return state.authentication;
 };
 export default connect(mapStateToProps, { loginUser, fbAuth })(LoginPage);

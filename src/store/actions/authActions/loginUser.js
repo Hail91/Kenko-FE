@@ -18,7 +18,7 @@ const loginUser = (user, location) => async (dispatch) => {
     dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
     location.push("/dashboard/home");
   } catch (error) {
-    let errorReason = error.response.data.message;
+    let errorReason = error.response.data;
     console.log({ errorMessage: error });
     dispatch({ type: LOGIN_USER_FAILURE, payload: errorReason });
   }
