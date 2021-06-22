@@ -16,6 +16,7 @@ const LoginPage = (props) => {
   const [user, setUser] = useInput({
     email: "",
     password: "",
+    remember_me: false,
   });
   const [fbParams, setFbParams] = useState(
     queryString.stringify({
@@ -154,6 +155,8 @@ const LoginPage = (props) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
+                  value={user.remember_me}
+                  onChange={setUser}
                   id="remember_me"
                   name="remember_me"
                   type="checkbox"
@@ -206,6 +209,7 @@ const LoginPage = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  return state;
+  // Only authentication store data is necessary in this component, so return that.
+  return state.authentication;
 };
 export default connect(mapStateToProps, { loginUser, fbAuth })(LoginPage);
