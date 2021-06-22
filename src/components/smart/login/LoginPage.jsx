@@ -9,8 +9,6 @@ import fbAuth from "../../../store/actions/socialAuthActions/fbAuth";
 import { NavLink, useHistory } from "react-router-dom";
 // Component Imports
 import ExternalLogin from "../shared/ExternalLogin";
-import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
-import FailureMessage from "../../presentational/flash-messages/FailureMessage";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
 
@@ -30,21 +28,25 @@ const LoginPage = (props) => {
     })
   );
   const [fbUrl, setFbUrl] = useState("");
-  const [incorrectLogin, setIncorrectLogin] = useState(false);
+  const [incompleteEmail, setIncompleteEmail] = useState(false);
+  const [incompletePassword, setIncompletePassword] = useState(false);
   const location = useHistory();
-
-  let storeObject = useStore();
 
   useEffect(() => {
     setFbUrl(`https://www.facebook.com/v11.0/dialog/oauth?${fbParams}`);
-    return () => {
-      localStorage.removeItem("registerStatus");
-    };
   }, [fbParams]);
 
   const LoginUser = (event) => {
     event.preventDefault();
-    props.loginUser(user, location, storeObject);
+    if (!user.email) {
+      setIncompleteEmail(true);
+    }
+    if (!user.password) {
+      setIncompletePassword(true);
+    }
+    if (user.email && user.password) {
+      props.loginUser(user, location);
+    }
   };
 
   const handleFacebookAuth = () => {
@@ -69,19 +71,13 @@ const LoginPage = (props) => {
             register here
           </NavLink>
         </p>
-        {localStorage.getItem("registerStatus") === "true" ? (
-          <SuccessMessage type={"Registered!"} />
-        ) : localStorage.getItem("registerStatus") === "false" ? (
-          <FailureMessage type={"Register"} />
-        ) : (
-          <></>
-        )}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6">
             <div>
+              {incompleteEmail ? <p>The Email field is required</p> : ""}
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -113,6 +109,7 @@ const LoginPage = (props) => {
               </div>
             </div>
             <div>
+              {incompletePassword ? <p>The Password field is required</p> : ""}
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
@@ -159,13 +156,6 @@ const LoginPage = (props) => {
                 </a>
               </div>
             </div>
-
-            {incorrectLogin ? (
-              <p className="mb-4 text-red-500">
-                Incorrect credentials provided, please try again
-              </p>
-            ) : null}
-
             <div>
               <button
                 onClick={LoginUser}
