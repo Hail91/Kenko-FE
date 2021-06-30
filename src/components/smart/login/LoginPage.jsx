@@ -217,7 +217,11 @@ const LoginPage = (props) => {
               fbAuth={handleFacebookAuth}
               handleModalClick={handleModalClick}
             />
-            <SocialAuthModal open={modalOpen} setOpen={handleModalClick} />
+            <SocialAuthModal
+              fbUrl={fbUrl}
+              open={modalOpen}
+              setOpen={handleModalClick}
+            />
           </div>
         </div>
       </div>
