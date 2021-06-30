@@ -11,6 +11,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import ExternalLogin from "../shared/ExternalLogin";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
+import SocialAuthModal from "../../presentational/modals/SocialAuthModal";
 
 const LoginPage = (props) => {
   const [user, setUser] = useInput({
@@ -18,6 +19,9 @@ const LoginPage = (props) => {
     password: "",
     remember_me: false,
   });
+  // Trigger 3rd party auth login modal boolean var
+  const [modalOpen, setModalOpen] = useState(false);
+  // Set the FB request parameters
   const [fbParams, setFbParams] = useState(
     queryString.stringify({
       client_id: process.env.REACT_APP_FB_APP_ID,
@@ -28,9 +32,12 @@ const LoginPage = (props) => {
       display: "popup",
     })
   );
+  // Set URL to hit, will be passed to modal
   const [fbUrl, setFbUrl] = useState("");
+  // Error states
   const [incompleteEmail, setIncompleteEmail] = useState(false);
   const [incompletePassword, setIncompletePassword] = useState(false);
+
   const location = useHistory();
 
   useEffect(() => {
@@ -52,6 +59,10 @@ const LoginPage = (props) => {
 
   const handleFacebookAuth = () => {
     props.fbAuth(location);
+  };
+
+  const handleModalClick = () => {
+    setModalOpen(!modalOpen);
   };
 
   return (
@@ -201,7 +212,12 @@ const LoginPage = (props) => {
                 </span>
               </div>
             </div>
-            <ExternalLogin facebookLogin={fbUrl} fbAuth={handleFacebookAuth} />
+            <ExternalLogin
+              facebookLogin={fbUrl}
+              fbAuth={handleFacebookAuth}
+              handleModalClick={handleModalClick}
+            />
+            <SocialAuthModal open={modalOpen} setOpen={handleModalClick} />
           </div>
         </div>
       </div>
