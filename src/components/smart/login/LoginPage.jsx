@@ -11,6 +11,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import ExternalLogin from "../shared/ExternalLogin";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
+import SocialAuthModal from "../../presentational/modals/SocialAuthModal";
 
 const LoginPage = (props) => {
   const [user, setUser] = useInput({
@@ -18,10 +19,12 @@ const LoginPage = (props) => {
     password: "",
     remember_me: false,
   });
+  const [modalOpen, setModalOpen] = useState(false);
+
   const [fbParams, setFbParams] = useState(
     queryString.stringify({
       client_id: process.env.REACT_APP_FB_APP_ID,
-      redirect_uri: `${process.env.REACT_APP_CLIENT_URL}/home/dashboard`,
+      redirect_uri: `${process.env.REACT_APP_CLIENT_URL}/dashboard/home`,
       scope: "email",
       response_type: "code",
       auth_type: "rerequest",
@@ -29,8 +32,11 @@ const LoginPage = (props) => {
     })
   );
   const [fbUrl, setFbUrl] = useState("");
+
+  // Error states
   const [incompleteEmail, setIncompleteEmail] = useState(false);
   const [incompletePassword, setIncompletePassword] = useState(false);
+
   const location = useHistory();
 
   useEffect(() => {
@@ -52,6 +58,10 @@ const LoginPage = (props) => {
 
   const handleFacebookAuth = () => {
     props.fbAuth(location);
+  };
+
+  const handleModalClick = () => {
+    setModalOpen(!modalOpen);
   };
 
   return (
@@ -201,7 +211,16 @@ const LoginPage = (props) => {
                 </span>
               </div>
             </div>
-            <ExternalLogin facebookLogin={fbUrl} fbAuth={handleFacebookAuth} />
+            <ExternalLogin
+              facebookLogin={fbUrl}
+              fbAuth={handleFacebookAuth}
+              handleModalClick={handleModalClick}
+            />
+            <SocialAuthModal
+              fbUrl={fbUrl}
+              open={modalOpen}
+              setOpen={handleModalClick}
+            />
           </div>
         </div>
       </div>

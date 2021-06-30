@@ -1,13 +1,12 @@
 import React from "react";
 
-const ExternalLogin = ({ facebookLogin, fbAuth }) => {
+const ExternalLogin = ({ handleModalClick }) => {
   return (
     <div className="mt-6 grid grid-cols-2 gap-3">
       <div>
-        <a
-          onClick={fbAuth}
-          href={facebookLogin}
-          className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+        <button
+          onClick={handleModalClick}
+          className="w-full inline-flex justify-center py-2 px-4 focus:outline-none border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
           <span className="sr-only">Sign in with Facebook</span>
           <svg
@@ -22,7 +21,7 @@ const ExternalLogin = ({ facebookLogin, fbAuth }) => {
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </button>
       </div>
 
       <div>
