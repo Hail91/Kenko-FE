@@ -74,7 +74,7 @@ const Main = (props) => {
   const rootPath = "/dashboard/settings";
 
   // Will have to throw this in component state and update with setter
-  const id = props.authentication.user_profile.current_user.id;
+  const id = props.authentication.user_profile.id;
 
   useEffect(() => {
     let queryParams = queryString.parseUrl(location.location.pathname);

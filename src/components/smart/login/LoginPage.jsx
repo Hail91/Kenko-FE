@@ -21,7 +21,7 @@ const LoginPage = (props) => {
   const [fbParams, setFbParams] = useState(
     queryString.stringify({
       client_id: process.env.REACT_APP_FB_APP_ID,
-      redirect_uri: `${process.env.REACT_APP_CLIENT_URL}/home/dashboard`,
+      redirect_uri: `${process.env.REACT_APP_CLIENT_URL}/dashboard/home`,
       scope: "email",
       response_type: "code",
       auth_type: "rerequest",
