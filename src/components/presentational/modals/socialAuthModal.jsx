@@ -48,25 +48,31 @@ const SocialAuthModal = ({ open, setOpen }) => {
           >
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
               <div>
-                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                  <CheckIcon
-                    className="h-6 w-6 text-green-600"
+                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full">
+                  <svg
+                    className="w-10 h-10 text-blue-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
                     aria-hidden="true"
-                  />
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </div>
                 <div className="mt-3 text-center sm:mt-5">
                   <Dialog.Title
                     as="h3"
                     className="text-lg leading-6 font-medium text-gray-900"
                   >
-                    Payment successful
+                    Facebook Login
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Eius aliquam laudantium explicabo pariatur iste dolorem
-                      animi vitae error totam. At sapiente aliquam accusamus
-                      facere veritatis.
+                      Please note that you will be redirected to Facebook to log
+                      into your account in order to access Kenko.
                     </p>
                   </div>
                 </div>
