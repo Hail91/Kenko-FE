@@ -19,9 +19,8 @@ const LoginPage = (props) => {
     password: "",
     remember_me: false,
   });
-  // Trigger 3rd party auth login modal boolean var
   const [modalOpen, setModalOpen] = useState(false);
-  // Set the FB request parameters
+
   const [fbParams, setFbParams] = useState(
     queryString.stringify({
       client_id: process.env.REACT_APP_FB_APP_ID,
@@ -32,8 +31,8 @@ const LoginPage = (props) => {
       display: "popup",
     })
   );
-  // Set URL to hit, will be passed to modal
   const [fbUrl, setFbUrl] = useState("");
+
   // Error states
   const [incompleteEmail, setIncompleteEmail] = useState(false);
   const [incompletePassword, setIncompletePassword] = useState(false);
