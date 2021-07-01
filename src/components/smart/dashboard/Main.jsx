@@ -77,9 +77,10 @@ const Main = (props) => {
   const id = props.authentication.user_profile.id;
 
   useEffect(() => {
-    let queryParams = queryString.parseUrl(location.location.pathname);
-    if (queryParams.hasOwnProperty("code")) {
-      props.fbAuth();
+    let queryParams = queryString.parseUrl(location.location.search);
+    if (queryParams.query["code"]) {
+      let accessCode = queryParams.query["code"];
+      props.fbAuth(accessCode);
     }
     // Fetch the user if the id exists, if id does not exist on props, it was a social media login...respond accordingly...**TO DO**
     if (id) props.fetchUser(id);
