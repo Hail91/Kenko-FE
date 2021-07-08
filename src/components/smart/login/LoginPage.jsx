@@ -25,7 +25,7 @@ const LoginPage = (props) => {
     queryString.stringify({
       client_id: process.env.REACT_APP_FB_APP_ID,
       redirect_uri: `${process.env.REACT_APP_CLIENT_URL}/dashboard/home`,
-      scope: "email",
+      scope: "public_profile, email",
       response_type: "code",
       auth_type: "rerequest",
       display: "popup",
