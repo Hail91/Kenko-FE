@@ -17,6 +17,8 @@ const fbAuth = (code) => async (dispatch) => {
         code: code,
       }
     );
+    // Log response
+    console.log(response);
     /* After making the above call, response should contain user data that we can pass to the dispatch success 
     in the payload, which will then be persisted to the store/localStorage */
     dispatch({ type: FB_AUTH_SUCCESS });
