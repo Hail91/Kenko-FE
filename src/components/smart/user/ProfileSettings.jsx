@@ -2,8 +2,28 @@ import React from "react";
 // Redux imports
 import { connect } from "react-redux";
 import updateUser from "../../../store/actions/userActions/updateUser";
+// Custom hooks
+import useInput from "../../../custom_hooks/useInput";
 
 const ProfileSettings = (props) => {
+  const { user_profile } = props.user;
+  const { id } = user_profile;
+
+  const [user, setUser] = useInput({
+    username: user_profile.username,
+    email: user_profile.email,
+    bio: user_profile.bio,
+    first_name: user_profile.first_name,
+    last_name: user_profile.last_name,
+    site_url: user_profile.site_url,
+  });
+
+  // Define a function to submit update user action to Redux store
+  const handleProfileSettings = () => {
+    // Call update user action when button is clicked
+    props.updateUser(id, user);
+  };
+
   return (
     <>
       <div className="py-6 px-4 sm:p-6 lg:pb-8">
@@ -31,7 +51,8 @@ const ProfileSettings = (props) => {
                   kenko.com/
                 </span>
                 <input
-                  defaultValue={props.user.user_profile.username}
+                  value={user.username}
+                  onChange={setUser}
                   type="text"
                   name="username"
                   id="username"
@@ -51,7 +72,8 @@ const ProfileSettings = (props) => {
               </label>
               <div className="mt-1 rounded-md shadow-sm flex">
                 <input
-                  defaultValue={props.user.user_profile.email}
+                  value={user.email}
+                  onChange={setUser}
                   type="text"
                   name="email"
                   id="email"
@@ -64,14 +86,16 @@ const ProfileSettings = (props) => {
 
             <div>
               <label
-                htmlFor="about"
+                htmlFor="bio"
                 className="block text-sm font-medium text-gray-700"
               >
                 About
               </label>
               <div className="mt-1">
                 <textarea
-                  defaultValue={props.user.user_profile.bio ?? ""}
+                  type="text"
+                  value={user.bio}
+                  onChange={setUser}
                   id="bio"
                   name="bio"
                   rows={3}
@@ -157,7 +181,8 @@ const ProfileSettings = (props) => {
               First name
             </label>
             <input
-              defaultValue={props.user.user_profile.first_name ?? ""}
+              value={user.first_name}
+              onChange={setUser}
               placeholder="Please enter your first name"
               type="text"
               name="first_name"
@@ -175,7 +200,8 @@ const ProfileSettings = (props) => {
               Last name
             </label>
             <input
-              defaultValue={props.user.user_profile.last_name ?? ""}
+              value={user.last_name}
+              onChange={setUser}
               placeholder="Please enter your last name"
               type="text"
               name="last_name"
@@ -193,7 +219,8 @@ const ProfileSettings = (props) => {
               URL
             </label>
             <input
-              defaultValue={props.user.user_profile.site_url ?? ""}
+              value={user.site_url}
+              onChange={setUser}
               placeholder="Personal website or blog, etc."
               type="text"
               name="site_url"
@@ -211,7 +238,7 @@ const ProfileSettings = (props) => {
           Cancel
         </button>
         <button
-          onClick={updateUser}
+          onClick={handleProfileSettings}
           type="submit"
           className="ml-5 bg-green-500 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-green-400 focus:outline-none transition-all ease-in-out"
         >
