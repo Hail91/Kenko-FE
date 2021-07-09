@@ -71,6 +71,7 @@ const ProfileSettings = (props) => {
               </label>
               <div className="mt-1">
                 <textarea
+                  defaultValue={props.user.user_profile.bio ?? ""}
                   id="bio"
                   name="bio"
                   rows={3}
@@ -156,6 +157,7 @@ const ProfileSettings = (props) => {
               First name
             </label>
             <input
+              defaultValue={props.user.user_profile.first_name ?? ""}
               placeholder="Please enter your first name"
               type="text"
               name="first_name"
@@ -173,6 +175,7 @@ const ProfileSettings = (props) => {
               Last name
             </label>
             <input
+              defaultValue={props.user.user_profile.last_name ?? ""}
               placeholder="Please enter your last name"
               type="text"
               name="last_name"
@@ -190,6 +193,7 @@ const ProfileSettings = (props) => {
               URL
             </label>
             <input
+              defaultValue={props.user.user_profile.site_url ?? ""}
               placeholder="Personal website or blog, etc."
               type="text"
               name="site_url"
@@ -218,7 +222,6 @@ const ProfileSettings = (props) => {
   );
 };
 
-// This will require changes, current shape of state in Redux store is poor
 const mapStateToProps = (state) => {
   return state;
 };
