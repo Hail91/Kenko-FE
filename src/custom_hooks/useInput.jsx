@@ -8,7 +8,9 @@ const useInput = (initialState) => {
       setValues({
         ...fields,
         [event.target.name]:
-          event.target.type === "text" || event.target.type === "password"
+          event.target.type === "text" ||
+          event.target.type === "password" ||
+          event.target.type === "textarea"
             ? event.target.value
             : event.target.checked,
       });
