@@ -18,14 +18,14 @@ const ProfileSettings = (props) => {
     site_url: user_profile.site_url,
   });
 
-  // Define a function to submit update user action to Redux store
   const handleProfileSettings = () => {
-    // Call update user action when button is clicked
+    // Trigger action to update user information
     props.updateUser(id, user);
+    // Trigger notification modal to let user know action was successful
   };
 
   return (
-    <>
+    <form onSubmit={handleProfileSettings}>
       <div className="py-6 px-4 sm:p-6 lg:pb-8">
         <div>
           <h2 className="text-lg leading-6 font-medium text-gray-900">
@@ -89,11 +89,11 @@ const ProfileSettings = (props) => {
                 htmlFor="bio"
                 className="block text-sm font-medium text-gray-700"
               >
-                About
+                Bio
               </label>
               <div className="mt-1">
                 <textarea
-                  type="text"
+                  type="textarea"
                   value={user.bio}
                   onChange={setUser}
                   id="bio"
@@ -232,20 +232,13 @@ const ProfileSettings = (props) => {
       </div>
       <div className="mt-4 py-4 px-4 flex justify-end sm:px-6">
         <button
-          type="button"
-          className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-green-500 hover:text-green-500 focus:outline-none transition-all ease-in-out"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleProfileSettings}
           type="submit"
           className="ml-5 bg-green-500 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-green-400 focus:outline-none transition-all ease-in-out"
         >
           Save
         </button>
       </div>
-    </>
+    </form>
   );
 };
 
