@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // Redux imports
 import { connect } from "react-redux";
 import updateUser from "../../../store/actions/userActions/updateUser";
@@ -19,7 +19,9 @@ const ProfileSettings = (props) => {
   });
 
   const handleProfileSettings = () => {
+    // Trigger action to update user information
     props.updateUser(id, user);
+    // Trigger notification modal to let user know action was successful
   };
 
   return (
