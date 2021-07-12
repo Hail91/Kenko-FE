@@ -1,27 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // Redux imports
 import { connect } from "react-redux";
 import updateUser from "../../../store/actions/userActions/updateUser";
-// Custom hooks
-import useInput from "../../../custom_hooks/useInput";
 
 const ProfileSettings = (props) => {
   const { user_profile } = props.user;
   const { id } = user_profile;
 
-  const [user, setUser] = useInput({
-    username: user_profile.username,
-    email: user_profile.email,
-    bio: user_profile.bio,
-    first_name: user_profile.first_name,
-    last_name: user_profile.last_name,
-    site_url: user_profile.site_url,
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    bio: "",
+    first_name: "",
+    last_name: "",
+    site_url: "",
   });
 
+  useEffect(() => {
+    setUser({
+      username: props.user.user_profile.username,
+      email: props.user.user_profile.email,
+      bio: props.user.user_profile.bio,
+      first_name: props.user.user_profile.first_name,
+      last_name: props.user.user_profile.last_name,
+      site_url: props.user.user_profile.site_url,
+    });
+  }, [props.user.user_profile]);
+
+  const handleChange = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
   const handleProfileSettings = () => {
-    // Trigger action to update user information
     props.updateUser(id, user);
-    // Trigger notification modal to let user know action was successful
   };
 
   return (
@@ -52,7 +63,7 @@ const ProfileSettings = (props) => {
                 </span>
                 <input
                   value={user.username}
-                  onChange={setUser}
+                  onChange={handleChange}
                   type="text"
                   name="username"
                   id="username"
@@ -73,7 +84,7 @@ const ProfileSettings = (props) => {
               <div className="mt-1 rounded-md shadow-sm flex">
                 <input
                   value={user.email}
-                  onChange={setUser}
+                  onChange={handleChange}
                   type="text"
                   name="email"
                   id="email"
@@ -95,7 +106,7 @@ const ProfileSettings = (props) => {
                 <textarea
                   type="textarea"
                   value={user.bio}
-                  onChange={setUser}
+                  onChange={handleChange}
                   id="bio"
                   name="bio"
                   rows={3}
@@ -182,7 +193,7 @@ const ProfileSettings = (props) => {
             </label>
             <input
               value={user.first_name}
-              onChange={setUser}
+              onChange={handleChange}
               placeholder="Please enter your first name"
               type="text"
               name="first_name"
@@ -201,7 +212,7 @@ const ProfileSettings = (props) => {
             </label>
             <input
               value={user.last_name}
-              onChange={setUser}
+              onChange={handleChange}
               placeholder="Please enter your last name"
               type="text"
               name="last_name"
@@ -220,7 +231,7 @@ const ProfileSettings = (props) => {
             </label>
             <input
               value={user.site_url}
-              onChange={setUser}
+              onChange={handleChange}
               placeholder="Personal website or blog, etc."
               type="text"
               name="site_url"
