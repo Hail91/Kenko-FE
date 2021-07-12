@@ -21,6 +21,10 @@ const ProfileSettings = (props) => {
   const handleProfileSettings = (event) => {
     event.preventDefault();
     props.updateUser(id, user);
+    if (!props.user.error) {
+      props.handleSaveSuccess();
+    }
+    // Then Trigger the success modal, otherwise trigger the failure modal **TO DO**
   };
 
   return (
