@@ -60,9 +60,11 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_USER_SUCCESS:
       return {
         ...state,
-        ...action.payload,
         isLoading: false,
         error: null,
+        user_profile: {
+          ...action.payload,
+        },
       };
     case UPDATE_USER_FAILURE:
       return {

@@ -7,7 +7,7 @@ export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 const updateUser = (userId, user) => async (dispatch) => {
   dispatch({ type: UPDATE_USER_START });
   try {
-    let response = axios.put(
+    let response = await axios.put(
       `${process.env.REACT_APP_DEV_URL}/api/users/${userId}`,
       user,
       {

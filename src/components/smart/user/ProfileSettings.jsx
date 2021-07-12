@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // Redux imports
 import { connect } from "react-redux";
 import updateUser from "../../../store/actions/userActions/updateUser";
@@ -8,30 +8,20 @@ const ProfileSettings = (props) => {
   const { id } = user_profile;
 
   const [user, setUser] = useState({
-    username: "",
-    email: "",
-    bio: "",
-    first_name: "",
-    last_name: "",
-    site_url: "",
+    username: user_profile.username,
+    email: user_profile.email,
+    bio: user_profile.bio,
+    first_name: user_profile.first_name,
+    last_name: user_profile.last_name,
+    site_url: user_profile.site_url,
   });
-
-  useEffect(() => {
-    setUser({
-      username: props.user.user_profile.username,
-      email: props.user.user_profile.email,
-      bio: props.user.user_profile.bio,
-      first_name: props.user.user_profile.first_name,
-      last_name: props.user.user_profile.last_name,
-      site_url: props.user.user_profile.site_url,
-    });
-  }, [props.user.user_profile]);
 
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const handleProfileSettings = () => {
+  const handleProfileSettings = (event) => {
+    event.preventDefault();
     props.updateUser(id, user);
   };
 
