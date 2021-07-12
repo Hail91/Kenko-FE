@@ -18,10 +18,13 @@ const ProfileSettings = (props) => {
     site_url: user_profile.site_url,
   });
 
-  const handleProfileSettings = () => {
-    // Trigger action to update user information
+  const handleProfileSettings = (event) => {
+    event.preventDefault();
     props.updateUser(id, user);
-    // Trigger notification modal to let user know action was successful
+    if (!props.user.error) {
+      props.handleSaveSuccess();
+    }
+    // Then Trigger the success modal, otherwise trigger the failure modal **TO DO**
   };
 
   return (

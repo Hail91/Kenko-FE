@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Router imports
 import { Switch, Link } from "react-router-dom";
 // Utility
@@ -15,6 +15,7 @@ import {
 // Components
 import ProfileSettings from "./ProfileSettings";
 import AccountSettings from "./AccountSettings";
+import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
 
 const subNavigation = [
   {
@@ -60,9 +61,22 @@ function classNames(...classes) {
 }
 
 const UserSettings = ({ root }) => {
+  const [successfulSave, setSuccessfulSave] = useState(false);
+
+  const handleSaveSuccess = () => {
+    setSuccessfulSave(!successfulSave);
+  };
+
   return (
     <>
       <div>
+        {successfulSave ? (
+          <SuccessMessage
+            handleSuccessfulSave={handleSaveSuccess}
+            successfulSave={successfulSave}
+            type={"Saved"}
+          />
+        ) : null}
         <main className="relative mt-4">
           <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
             <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -99,10 +113,10 @@ const UserSettings = ({ root }) => {
                 <div className="divide-y divide-gray-200 lg:col-span-9">
                   <Switch>
                     <PrivateRoute path={`${root}/profile`}>
-                      <ProfileSettings />
+                      <ProfileSettings handleSaveSuccess={handleSaveSuccess} />
                     </PrivateRoute>
                     <PrivateRoute path={`${root}/account`}>
-                      <AccountSettings />
+                      <AccountSettings handleSaveSuccess={handleSaveSuccess} />
                     </PrivateRoute>
                   </Switch>
                 </div>

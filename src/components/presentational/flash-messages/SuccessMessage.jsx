@@ -3,30 +3,28 @@ import { Transition } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/solid";
 
-const SuccessMessage = ({ type }) => {
-  const [showMessage, setShowMessage] = useState(true);
-  // Dynamic close the notification after a period of 3 seconds
+const SuccessMessage = ({ type, successfulSave, handleSuccessfulSave }) => {
+  const [showMessage, setShowMessage] = useState(successfulSave);
+
   useEffect(() => {
     setTimeout(() => {
-      setShowMessage(false);
+      handleSuccessfulSave();
     }, 5000);
-  }, [showMessage]);
+  });
 
   return (
     <>
-      {/* Global notification live region, render this permanently at the end of the document */}
       <div
         aria-live="assertive"
-        className="fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end"
+        className="fixed mt-12 inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end"
       >
-        {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
         <Transition
           show={showMessage}
           as={Fragment}
-          enter="transform ease-out duration-300 transition"
+          enter="transform ease-out duration-500 transition"
           enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
           enterTo="translate-y-0 opacity-100 sm:translate-x-0"
-          leave="transition ease-in duration-100"
+          leave="transition ease-in duration-500"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
@@ -40,15 +38,15 @@ const SuccessMessage = ({ type }) => {
                   />
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium text-gray-900">
-                    Successfully {type}
+                  <p className="text-sm font-medium text-red-900">
+                    Successfully {type}!
                   </p>
                 </div>
                 <div className="ml-4 flex-shrink-0 flex">
                   <button
-                    className="bg-white rounded-md inline-flex text-green-400 hover:text-green-500 focus:outline-none"
+                    className="bg-white rounded-md inline-flex text-green-400 hover:text-green-500 transition-all outline-none focus:outline-none"
                     onClick={() => {
-                      setShowMessage(false);
+                      handleSuccessfulSave();
                     }}
                   >
                     <span className="sr-only">Close</span>
@@ -63,5 +61,5 @@ const SuccessMessage = ({ type }) => {
     </>
   );
 };
-// Export component
+
 export default SuccessMessage;
