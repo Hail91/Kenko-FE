@@ -1,9 +1,16 @@
 import React from "react";
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
 
-const BaseInputField = ({ inputLabel, inputType, inputFor }) => {
+const BaseInputField = ({
+  inputLabel,
+  inputType,
+  inputFor,
+  inputPlaceHolder,
+  inputWidth,
+  inputOnChange,
+}) => {
   return (
-    <div className="w-80">
+    <div className={inputWidth}>
       <label
         htmlFor={inputFor}
         className="block text-sm font-medium text-gray-700"
@@ -16,10 +23,9 @@ const BaseInputField = ({ inputLabel, inputType, inputFor }) => {
           name={inputFor}
           id={inputFor}
           className="block w-full pr-10 border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md"
-          placeholder="you@example.com"
-          defaultValue="adamwathan"
-          aria-invalid="true"
-          aria-describedby="email-error"
+          placeholder={inputPlaceHolder}
+          aria-describedby={inputFor}
+          onChange={inputOnChange}
         />
         {/* <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
           <ExclamationCircleIcon

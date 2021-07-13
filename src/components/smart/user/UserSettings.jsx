@@ -21,6 +21,7 @@ import NotificationSettings from "./NotificationSettings";
 import BillingSettings from "./BillingSettings";
 import IntegrationSettings from "./IntegrationSettings";
 
+// Consider moving this to component state
 const subNavigation = [
   {
     name: "Profile",
@@ -60,6 +61,7 @@ const subNavigation = [
   },
 ];
 
+// Similarly, consider moving this into the component itself
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -69,6 +71,14 @@ const UserSettings = ({ root }) => {
 
   const handleSaveSuccess = () => {
     setSuccessfulSave(!successfulSave);
+  };
+
+  const handleMenuSelect = (options, item) => {
+    options.forEach((menuItem) => {
+      if (menuItem.name === item.name) {
+        menuItem.current = true;
+      } else menuItem.current = false;
+    });
   };
 
   return (
@@ -89,6 +99,7 @@ const UserSettings = ({ root }) => {
                   <nav className="space-y-1">
                     {subNavigation.map((item) => (
                       <Link
+                        onClick={() => handleMenuSelect(subNavigation, item)}
                         key={item.name}
                         to={item.href}
                         className={classNames(

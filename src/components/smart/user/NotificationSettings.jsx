@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 // UI imports
 import FormToggle from "../../ui/toggles/FormToggle";
 import BaseInputField from "../../ui/inputs/BaseInputField";
+// Form validation
+import FormValidator from "../../../utilities/validators/FormValidator";
 
 const NotificationSettings = () => {
+  // Local state to control whether an input is valid
+  const [isValidInput, setIsValidInput] = useState(null);
+  const [defaultEmail, setDefaultEmail] = useState("");
+
+  // handleChange method that will be passed to BaseInputFields
+  const handleChange = () => {
+    /* 
+    TO DO
+    -----
+    - Check for the event.target.type
+    - On every value change, pass the current event.target.value into the form validator 
+    - Update the isValidInput state based on the result of the above check
+    - The isValidInput will be passed to the BaseInputField component which it will use to render either a valid message or a warning/error
+    */
+    console.log("Tracking the value!");
+  };
+
   return (
     <div>
       <form action="#" method="POST">
@@ -28,6 +47,9 @@ const NotificationSettings = () => {
                   inputLabel={"Default notification email"}
                   inputType={"text"}
                   inputFor={"email"}
+                  inputPlaceHolder={"you@example.com"}
+                  inputWidth={"w-80"}
+                  inputOnChange={handleChange}
                 />
                 <div className="flex items-end">
                   <div className="h-5 flex items-center">
