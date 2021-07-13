@@ -1,6 +1,7 @@
 import React from "react";
 // UI imports
 import FormToggle from "../../ui/toggles/FormToggle";
+import BaseInputField from "../../ui/inputs/BaseInputField";
 
 const NotificationSettings = () => {
   return (
@@ -23,6 +24,11 @@ const NotificationSettings = () => {
               </legend>
               <hr className="border-green-300 mt-2" />
               <div className="mt-4 space-y-4">
+                <BaseInputField
+                  inputLabel={"Default notification email"}
+                  inputType={"text"}
+                  inputFor={"email"}
+                />
                 <div className="flex items-end">
                   <div className="h-5 flex items-center">
                     <FormToggle />
@@ -73,11 +79,24 @@ const NotificationSettings = () => {
                           htmlFor="candidates"
                           className="font-medium text-gray-700"
                         >
-                          Candidates
+                          Friends
                         </label>
                       </div>
                       <p className="text-gray-500">
-                        Get notified when a candidate applies for a job.
+                        Get notified when you receive a friend request.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-end">
+                    <div className="h-5 flex items-center">
+                      <FormToggle />
+                    </div>
+                    <div className="ml-3 text-sm">
+                      <div className="w-8 mb-2"></div>
+                      <p className="text-gray-500">
+                        Get notified when someone accepts your friend request.
                       </p>
                     </div>
                   </div>
@@ -93,12 +112,11 @@ const NotificationSettings = () => {
                           htmlFor="offers"
                           className="font-medium text-gray-700"
                         >
-                          Offers
+                          Messaging
                         </label>
                       </div>
                       <p className="text-gray-500">
-                        Get notified when a candidate accepts or rejects an
-                        offer.
+                        Receive notifications from messenger
                       </p>
                     </div>
                   </div>
