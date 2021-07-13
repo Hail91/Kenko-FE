@@ -1,4 +1,6 @@
 import React from "react";
+// UI imports
+import FormToggle from "../../ui/toggles/FormToggle";
 
 const NotificationSettings = () => {
   return (
@@ -11,7 +13,7 @@ const NotificationSettings = () => {
                 Notifications
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                Here you can choose how you would like to recieve notifications.
+                Here you can choose how you would like to receive notifications.
               </p>
             </div>
 
@@ -21,44 +23,59 @@ const NotificationSettings = () => {
               </legend>
               <hr className="border-green-300 mt-2" />
               <div className="mt-4 space-y-4">
-                <div className="flex items-start">
+                <div className="flex items-end">
                   <div className="h-5 flex items-center">
-                    <input
-                      id="comments"
-                      name="comments"
-                      type="checkbox"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                    />
+                    <FormToggle />
                   </div>
                   <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="comments"
-                      className="font-medium text-gray-700"
-                    >
-                      Comments
-                    </label>
+                    <div className="w-8 mb-2">
+                      <label
+                        htmlFor="comments"
+                        className="font-medium text-gray-700"
+                      >
+                        Goals
+                      </label>
+                    </div>
                     <p className="text-gray-500">
-                      Get notified when someones posts a comment on a posting.
+                      Get notified when a deadline is coming up on a goal you
+                      are tracking.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-end">
+                  <div className="h-5 flex items-center">
+                    <FormToggle />
+                  </div>
+                  <div className="ml-3 text-sm">
+                    <p className="text-gray-500">
+                      Get notified when you complete a goal you are tracking.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-end">
+                  <div className="h-5 flex items-center">
+                    <FormToggle />
+                  </div>
+                  <div className="ml-3 text-sm">
+                    <p className="text-gray-500">
+                      Get notified when you add a new goal and enable tracking.
                     </p>
                   </div>
                 </div>
                 <div>
-                  <div className="flex items-start">
+                  <div className="flex items-end">
                     <div className="h-5 flex items-center">
-                      <input
-                        id="candidates"
-                        name="candidates"
-                        type="checkbox"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      />
+                      <FormToggle />
                     </div>
                     <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="candidates"
-                        className="font-medium text-gray-700"
-                      >
-                        Candidates
-                      </label>
+                      <div className="w-8 mb-2">
+                        <label
+                          htmlFor="candidates"
+                          className="font-medium text-gray-700"
+                        >
+                          Candidates
+                        </label>
+                      </div>
                       <p className="text-gray-500">
                         Get notified when a candidate applies for a job.
                       </p>
@@ -66,22 +83,19 @@ const NotificationSettings = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="flex items-start">
+                  <div className="flex items-end">
                     <div className="h-5 flex items-center">
-                      <input
-                        id="offers"
-                        name="offers"
-                        type="checkbox"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      />
+                      <FormToggle />
                     </div>
                     <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="offers"
-                        className="font-medium text-gray-700"
-                      >
-                        Offers
-                      </label>
+                      <div className="w-8 mb-2">
+                        <label
+                          htmlFor="offers"
+                          className="font-medium text-gray-700"
+                        >
+                          Offers
+                        </label>
+                      </div>
                       <p className="text-gray-500">
                         Get notified when a candidate accepts or rejects an
                         offer.
@@ -101,12 +115,7 @@ const NotificationSettings = () => {
               <hr className="border-green-300 mt-2" />
               <div className="mt-4 space-y-4">
                 <div className="flex items-center">
-                  <input
-                    id="push-everything"
-                    name="push-notifications"
-                    type="radio"
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                  />
+                  <FormToggle />
                   <label htmlFor="push-everything" className="ml-3">
                     <span className="block text-sm font-medium text-gray-700">
                       Everything
@@ -114,12 +123,7 @@ const NotificationSettings = () => {
                   </label>
                 </div>
                 <div className="flex items-center">
-                  <input
-                    id="push-email"
-                    name="push-notifications"
-                    type="radio"
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                  />
+                  <FormToggle />
                   <label htmlFor="push-email" className="ml-3">
                     <span className="block text-sm font-medium text-gray-700">
                       Same as email
@@ -127,12 +131,7 @@ const NotificationSettings = () => {
                   </label>
                 </div>
                 <div className="flex items-center">
-                  <input
-                    id="push-nothing"
-                    name="push-notifications"
-                    type="radio"
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                  />
+                  <FormToggle />
                   <label htmlFor="push-nothing" className="ml-3">
                     <span className="block text-sm font-medium text-gray-700">
                       No push notifications
