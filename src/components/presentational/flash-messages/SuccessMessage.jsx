@@ -38,7 +38,7 @@ const SuccessMessage = ({ type, successfulSave, handleSuccessfulSave }) => {
                   />
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium text-red-900">
+                  <p className="text-sm font-medium text-green-500">
                     Successfully {type}!
                   </p>
                 </div>

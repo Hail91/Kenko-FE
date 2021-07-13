@@ -16,6 +16,10 @@ import {
 import ProfileSettings from "./ProfileSettings";
 import AccountSettings from "./AccountSettings";
 import SuccessMessage from "../../presentational/flash-messages/SuccessMessage";
+import SecuritySettings from "./SecuritySettings";
+import NotificationSettings from "./NotificationSettings";
+import BillingSettings from "./BillingSettings";
+import IntegrationSettings from "./IntegrationSettings";
 
 const subNavigation = [
   {
@@ -117,6 +121,22 @@ const UserSettings = ({ root }) => {
                     </PrivateRoute>
                     <PrivateRoute path={`${root}/account`}>
                       <AccountSettings handleSaveSuccess={handleSaveSuccess} />
+                    </PrivateRoute>
+                    <PrivateRoute path={`${root}/security`}>
+                      <SecuritySettings handleSaveSuccess={handleSaveSuccess} />
+                    </PrivateRoute>
+                    <PrivateRoute path={`${root}/notifications`}>
+                      <NotificationSettings
+                        handleSaveSuccess={handleSaveSuccess}
+                      />
+                    </PrivateRoute>
+                    <PrivateRoute path={`${root}/billing`}>
+                      <BillingSettings handleSaveSuccess={handleSaveSuccess} />
+                    </PrivateRoute>
+                    <PrivateRoute path={`${root}/integrations`}>
+                      <IntegrationSettings
+                        handleSaveSuccess={handleSaveSuccess}
+                      />
                     </PrivateRoute>
                   </Switch>
                 </div>

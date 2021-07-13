@@ -232,6 +232,9 @@ const ProfileSettings = (props) => {
             />
           </div>
         </div>
+        <p className="mt-2 text-sm text-gray-500">
+          Portfolio, Blog, Personal website, etc.
+        </p>
       </div>
       <div className="mt-4 py-4 px-4 flex justify-end sm:px-6">
         <button
