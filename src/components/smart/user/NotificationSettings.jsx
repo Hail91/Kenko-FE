@@ -4,6 +4,7 @@ import FormToggle from "../../ui/toggles/FormToggle";
 import BaseInputField from "../../ui/inputs/BaseInputField";
 // Form validation
 import FormValidator from "../../../utilities/validators/FormValidator";
+import FormSubmitButton from "../../ui/buttons/FormSubmitButton";
 
 const NotificationSettings = () => {
   // Local state to control whether an input is valid
@@ -182,12 +183,11 @@ const NotificationSettings = () => {
             </fieldset>
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button
-              type="submit"
-              className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-            >
-              Save
-            </button>
+            <FormSubmitButton
+              buttonText={"Save"}
+              bgColor={"green"}
+              textColor={"white"}
+            />
           </div>
         </div>
       </form>
