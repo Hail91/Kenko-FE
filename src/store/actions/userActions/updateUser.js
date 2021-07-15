@@ -17,7 +17,6 @@ const updateUser = (userId, user) => async (dispatch) => {
     );
     dispatch({ type: UPDATE_USER_SUCCESS, payload: response.data });
   } catch (error) {
-    console.log({ errorMessage: error });
     dispatch({
       type: UPDATE_USER_FAILURE,
       payload: error.response.data.message,
