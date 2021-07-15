@@ -1,15 +1,12 @@
 import React from "react";
-// Redux imports
-import { connect } from "react-redux";
-import updateUser from "../../../store/actions/userActions/updateUser";
 // Custom hooks
 import useInput from "../../../custom_hooks/useInput";
 
-const ProfileSettings = (props) => {
-  const { user_profile } = props.user;
+const ProfileSettings = ({ user, updateUser, handleSaveSuccess }) => {
+  const { user_profile } = user;
   const { id } = user_profile;
 
-  const [user, setUser] = useInput({
+  const [currentUser, setCurrentUser] = useInput({
     username: user_profile.username,
     email: user_profile.email,
     bio: user_profile.bio,
@@ -20,11 +17,14 @@ const ProfileSettings = (props) => {
 
   const handleProfileSettings = (event) => {
     event.preventDefault();
-    props.updateUser(id, user);
-    if (!props.user.error) {
-      props.handleSaveSuccess();
+    updateUser(id, user);
+    if (!user.error) {
+      handleSaveSuccess();
     }
     // Then Trigger the success modal, otherwise trigger the failure modal **TO DO**
+    else {
+      console.log("Save failed!");
+    }
   };
 
   return (
@@ -54,8 +54,8 @@ const ProfileSettings = (props) => {
                   kenko.com/
                 </span>
                 <input
-                  value={user.username}
-                  onChange={setUser}
+                  value={currentUser.username}
+                  onChange={setCurrentUser}
                   type="text"
                   name="username"
                   id="username"
@@ -75,8 +75,8 @@ const ProfileSettings = (props) => {
               </label>
               <div className="mt-1 rounded-md shadow-sm flex">
                 <input
-                  value={user.email}
-                  onChange={setUser}
+                  value={currentUser.email}
+                  onChange={setCurrentUser}
                   type="text"
                   name="email"
                   id="email"
@@ -97,8 +97,8 @@ const ProfileSettings = (props) => {
               <div className="mt-1">
                 <textarea
                   type="textarea"
-                  value={user.bio}
-                  onChange={setUser}
+                  value={currentUser.bio}
+                  onChange={setCurrentUser}
                   id="bio"
                   name="bio"
                   rows={3}
@@ -184,8 +184,8 @@ const ProfileSettings = (props) => {
               First name
             </label>
             <input
-              value={user.first_name}
-              onChange={setUser}
+              value={currentUser.first_name}
+              onChange={setCurrentUser}
               placeholder="Please enter your first name"
               type="text"
               name="first_name"
@@ -203,8 +203,8 @@ const ProfileSettings = (props) => {
               Last name
             </label>
             <input
-              value={user.last_name}
-              onChange={setUser}
+              value={currentUser.last_name}
+              onChange={setCurrentUser}
               placeholder="Please enter your last name"
               type="text"
               name="last_name"
@@ -222,8 +222,8 @@ const ProfileSettings = (props) => {
               URL
             </label>
             <input
-              value={user.site_url}
-              onChange={setUser}
+              value={currentUser.site_url}
+              onChange={setCurrentUser}
               placeholder="Personal website or blog, etc."
               type="text"
               name="site_url"
@@ -248,8 +248,4 @@ const ProfileSettings = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-export default connect(mapStateToProps, { updateUser })(ProfileSettings);
+export default ProfileSettings;

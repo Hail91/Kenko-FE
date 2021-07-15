@@ -20,6 +20,9 @@ import SecuritySettings from "./SecuritySettings";
 import NotificationSettings from "./NotificationSettings";
 import BillingSettings from "./BillingSettings";
 import IntegrationSettings from "./IntegrationSettings";
+// Redux imports
+import { connect } from "react-redux";
+import updateUser from "../../../store/actions/userActions/updateUser";
 
 // Consider moving this to component state
 const subNavigation = [
@@ -66,7 +69,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const UserSettings = ({ root }) => {
+const UserSettings = (props) => {
   const [successfulSave, setSuccessfulSave] = useState(false);
 
   const handleSaveSuccess = () => {
@@ -127,26 +130,46 @@ const UserSettings = ({ root }) => {
 
                 <div className="divide-y divide-gray-200 lg:col-span-9">
                   <Switch>
-                    <PrivateRoute path={`${root}/profile`}>
-                      <ProfileSettings handleSaveSuccess={handleSaveSuccess} />
-                    </PrivateRoute>
-                    <PrivateRoute path={`${root}/account`}>
-                      <AccountSettings handleSaveSuccess={handleSaveSuccess} />
-                    </PrivateRoute>
-                    <PrivateRoute path={`${root}/security`}>
-                      <SecuritySettings handleSaveSuccess={handleSaveSuccess} />
-                    </PrivateRoute>
-                    <PrivateRoute path={`${root}/notifications`}>
-                      <NotificationSettings
+                    <PrivateRoute path={`${props.root}/profile`}>
+                      <ProfileSettings
                         handleSaveSuccess={handleSaveSuccess}
+                        user={props.user}
+                        updateUser={props.updateUser}
                       />
                     </PrivateRoute>
-                    <PrivateRoute path={`${root}/billing`}>
-                      <BillingSettings handleSaveSuccess={handleSaveSuccess} />
+                    <PrivateRoute path={`${props.root}/account`}>
+                      <AccountSettings
+                        handleSaveSuccess={handleSaveSuccess}
+                        user={props.user}
+                        updateUser={props.updateUser}
+                      />
                     </PrivateRoute>
-                    <PrivateRoute path={`${root}/integrations`}>
+                    <PrivateRoute path={`${props.root}/security`}>
+                      <SecuritySettings
+                        handleSaveSuccess={handleSaveSuccess}
+                        user={props.user}
+                        updateUser={props.updateUser}
+                      />
+                    </PrivateRoute>
+                    <PrivateRoute path={`${props.root}/notifications`}>
+                      <NotificationSettings
+                        handleSaveSuccess={handleSaveSuccess}
+                        user={props.user}
+                        updateUser={props.updateUser}
+                      />
+                    </PrivateRoute>
+                    <PrivateRoute path={`${props.root}/billing`}>
+                      <BillingSettings
+                        handleSaveSuccess={handleSaveSuccess}
+                        user={props.user}
+                        updateUser={props.updateUser}
+                      />
+                    </PrivateRoute>
+                    <PrivateRoute path={`${props.root}/integrations`}>
                       <IntegrationSettings
                         handleSaveSuccess={handleSaveSuccess}
+                        user={props.user}
+                        updateUser={props.updateUser}
                       />
                     </PrivateRoute>
                   </Switch>
@@ -159,4 +182,9 @@ const UserSettings = ({ root }) => {
     </>
   );
 };
-export default UserSettings;
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { updateUser })(UserSettings);
